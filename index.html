@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Plastmold Tek – To‑Do List</title>
-  <link rel="icon" type="image/x-icon" href="login_footer_2.png" />
+  <link rel="icon" type="image/x-icon" href="plastmoldtek_logo-removebg-preview.png" />
   <!-- Inter Font (Claude‑style) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -651,6 +651,28 @@
         remark: t.remark || ''
       }));
       saveTasks();
+
+      // ----- Load data from Google Sheets -----
+      async function loadDataFromSheet() {
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec'; // 👈 Same URL
+
+        try {
+          const response = await fetch(webAppUrl);
+          const result = await response.json();
+          
+          if (result.success && result.tasks && result.tasks.length > 0) {
+            tasks = result.tasks;
+            saveTasks(); // save to localStorage as backup
+            renderTable();
+            console.log('✅ Data loaded from Google Sheets.');
+          } else {
+            console.log('ℹ️ No data in Google Sheets, using local backup.');
+          }
+        } catch (error) {
+          console.error('❌ Failed to load from Google Sheets:', error);
+          console.log('Using local storage data.');
+        }
+      }
     }
 
     function saveTasks() {
@@ -717,12 +739,33 @@
       // 3. Save to localStorage
       saveTasks();
 
-      // 4. 🟢 FUTURE: Here we will call Google Sheets API via Apps Script
-      // Example: send tasks array to your Apps Script web app
-      // fetch('YOUR_APPS_SCRIPT_URL', {
-      //   method: 'POST',
-      //   body: JSON.stringify({ action: 'saveAll', data: tasks })
-      // });
+      // 4. Send data to Google Sheets via Apps Script
+      const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec'; 
+
+      try {
+        const response = await fetch(webAppUrl, {
+          method: 'POST',
+          mode: 'no-cors', // optional, but helps avoid CORS preflight
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ tasks: tasks })
+        });
+
+        // Note: with 'no-cors' we can't read the response body easily,
+        // but the request will still succeed.
+        // If you remove 'no-cors', you can parse the JSON response.
+        console.log('✅ Data sent to Google Sheets successfully.');
+        
+        // OPTIONAL: If you want to read the response, remove 'mode: "no-cors"'
+        // and use:
+        // const result = await response.json();
+        // if (result.success) { ... } else { ... }
+
+      } catch (error) {
+        console.error('❌ Failed to save to Google Sheets:', error);
+        alert('Failed to save to Google Sheets. Check console for details.');
+      }
 
       // 5. Turn off edit mode
       setEditMode(false);
@@ -884,6 +927,7 @@
 
     // ----- Init -----
     loadTasks();
+    loadDataFromSheet();
     if (tasks.length === 0) {
       tasks = [
         { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Anna', maker: 'John', date: getTodayStr(), planned: 'CAD model review', done: false, remark: '' },
