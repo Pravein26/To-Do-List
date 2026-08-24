@@ -729,54 +729,49 @@
     }
 
     // ----- Save All (called from button) -----
-    function handleSaveAll() {
-      // 1. Read all data from the table into the tasks array
-      collectTableDataIntoMemory();
+async function handleSaveAll() {
+  // 1. Read all data from the table into the tasks array
+  collectTableDataIntoMemory();
 
-      // 2. Apply auto-carry-over logic (in case dates changed)
-      autoCarryOver();
+  // 2. Apply auto-carry-over logic (in case dates changed)
+  autoCarryOver();
 
-      // 3. Save to localStorage
-      saveTasks();
+  // 3. Save to localStorage
+  saveTasks();
 
-      // 4. Send data to Google Sheets via Apps Script
-      const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec'; 
+  // 4. Send data to Google Sheets via Apps Script
+  const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec';
 
-      try {
-        const response = await fetch(webAppUrl, {
-          method: 'POST',
-          mode: 'no-cors', // optional, but helps avoid CORS preflight
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ tasks: tasks })
-        });
+  try {
+    const response = await fetch(webAppUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ tasks: tasks })
+    });
 
-        // Note: with 'no-cors' we can't read the response body easily,
-        // but the request will still succeed.
-        // If you remove 'no-cors', you can parse the JSON response.
-        console.log('✅ Data sent to Google Sheets successfully.');
-        
-        // OPTIONAL: If you want to read the response, remove 'mode: "no-cors"'
-        // and use:
-        // const result = await response.json();
-        // if (result.success) { ... } else { ... }
-
-      } catch (error) {
-        console.error('❌ Failed to save to Google Sheets:', error);
-        alert('Failed to save to Google Sheets. Check console for details.');
-      }
-
-      // 5. Turn off edit mode
-      setEditMode(false);
-
-      // 6. Re-render to update colors and serials
-      renderTable();
-
-      // 7. Feedback
-      alert('✅ All changes saved successfully! (localStorage)');
+    const result = await response.json();
+    if (result.success) {
+      console.log('✅ Data sent to Google Sheets successfully.', result.message);
+    } else {
+      console.error('❌ Google Sheets error:', result.error);
+      alert('Save to Google Sheets failed: ' + result.error);
     }
+  } catch (error) {
+    console.error('❌ Failed to save to Google Sheets:', error);
+    alert('Failed to save to Google Sheets. Check console for details.');
+  }
 
+  // 5. Turn off edit mode
+  setEditMode(false);
+
+  // 6. Re-render to update colors and serials
+  renderTable();
+
+  // 7. Feedback
+  alert('✅ All changes saved successfully! (localStorage)');
+}
     // ----- Toggle Edit Mode -----
     function setEditMode(mode) {
       editMode = mode;
@@ -925,30 +920,29 @@
 
     addBtn.addEventListener('click', addNewRow);
 
-    // ----- Init -----
-    loadTasks();
-    loadDataFromSheet();
-    if (tasks.length === 0) {
-      tasks = [
-        { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Anna', maker: 'John', date: getTodayStr(), planned: 'CAD model review', done: false, remark: '' },
-        { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Paul', maker: 'Sara', date: getYesterdayStr(), planned: 'Update fixtures', done: false, remark: '' },
-        { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Lisa', maker: 'Mike', date: getTodayStr(), planned: 'Final inspection', done: true, remark: 'Approved' },
-      ];
-      saveTasks();
-    }
+// ----- Init -----
+loadTasks();
 
-    // Render initially (hidden until dashboard is shown)
-    renderTable();
+// Load from cloud (but don't wait – let it run async)
+loadDataFromSheet();
 
-    // If dashboard is active on load (e.g., refresh), ensure edit mode is off
-    if (dashboardPage.classList.contains('active')) {
-      setEditMode(false);
-    } else {
-      // Default to view mode
-      setEditMode(false);
-    }
+// If no tasks after loading (should not happen because loadTasks seeds data)
+if (tasks.length === 0) {
+  tasks = [
+    { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Anna', maker: 'John', date: getTodayStr(), planned: 'CAD model review', done: false, remark: '' },
+    { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Paul', maker: 'Sara', date: getYesterdayStr(), planned: 'Update fixtures', done: false, remark: '' },
+    { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Lisa', maker: 'Mike', date: getTodayStr(), planned: 'Final inspection', done: true, remark: 'Approved' },
+  ];
+  saveTasks();
+}
 
-    console.log('✅ TaskFlow ready with Save All concept. Edit toggles inputs, Save All collects data.');
+// Render initially
+renderTable();
+
+// Default to view mode
+setEditMode(false);
+
+console.log('✅ TaskFlow ready with Save All concept. Edit toggles inputs, Save All collects data.');
   })();
 </script>
 
