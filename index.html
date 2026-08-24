@@ -22,7 +22,7 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: #f6f9fc;
       color: #1e293b;
-      padding-top: 72px; /* header height */
+      padding-top: 100px; /* fixed header height */
     }
     button {
       cursor: pointer;
@@ -467,6 +467,10 @@
       color: #ef4444;
       background: #fee2e2;
     }
+    .delete-row:disabled {
+      cursor: not-allowed;
+      opacity: 0.35;
+    }
 
     /* Empty state */
     .empty-state {
@@ -552,7 +556,7 @@
   <div class="dashboard-header">
     <h2><i class="fas fa-clipboard-list"></i> Regular List</h2>
     <div class="header-actions"style="margin-top:30px">
-      <button class="add-row-btn" id="addRowBtn"><i class="fas fa-plus-circle"></i> Add Row</button><br>
+      <button class="add-row-btn" id="addRowBtn" disabled title="Enable Edit mode to add a row"><i class="fas fa-plus-circle"></i> Add Row</button><br>
       <button class="action-btn btn-secondary" id="editToggleBtn"><i class="fas fa-pen"></i> Edit</button>
       <button class="action-btn btn-success" id="saveAllBtn" ><i class="fas fa-save"></i> Save All</button>
     </div>
@@ -661,13 +665,18 @@
         const response = await fetch(webAppUrl);
         const result = await response.json();
         
-        if (result.success && result.tasks && result.tasks.length > 0) {
-          tasks = result.tasks;
+        if (result.success && Array.isArray(result.tasks)) {
+          tasks = result.tasks.map(t => ({
+            id: t.id || Date.now() + Math.random(),
+            tool: t.tool || '', scope: t.scope || 'Newtool', design: t.design || '',
+            maker: t.maker || '', date: t.date || getTodayStr(), planned: t.planned || '',
+            done: t.done === true || t.done === 'true', remark: t.remark || ''
+          }));
           saveTasks(); // save to localStorage as backup
           renderTable();
           console.log('✅ Data loaded from Google Sheets.');
         } else {
-          console.log('ℹ️ No data in Google Sheets, using local backup.');
+          console.log('ℹ️ No usable data in Google Sheets, using local backup.');
         }
       } catch (error) {
         console.error('❌ Failed to load from Google Sheets:', error);
@@ -742,6 +751,7 @@
       // 4. Send data to Google Sheets (use text/plain to avoid preflight)
       const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec';
 
+      let sheetSaved = false;
       try {
         const response = await fetch(webAppUrl, {
           method: 'POST',
@@ -753,6 +763,7 @@
 
         const result = await response.json();
         if (result.success) {
+          sheetSaved = true;
           console.log('✅ Google Sheets update successful:', result.message);
         } else {
           console.error('❌ Google Sheets error:', result.error);
@@ -770,7 +781,9 @@
       renderTable();
 
       // 7. Feedback
-      alert('✅ All changes saved successfully! (localStorage)');
+      alert(sheetSaved
+        ? '✅ All changes saved to Google Sheets and this browser.'
+        : '⚠️ Changes were saved only in this browser. Google Sheets was not updated.');
     }
     // ----- Toggle Edit Mode -----
     function setEditMode(mode) {
@@ -787,11 +800,15 @@
         editToggleBtn.style.background = '#fee2e2';
         editToggleBtn.style.color = '#b91c1c';
         saveAllBtn.style.display = 'inline-flex';
+        addBtn.disabled = false;
+        addBtn.title = 'Add a new row';
       } else {
         editToggleBtn.innerHTML = '<i class="fas fa-pen"></i> Edit';
         editToggleBtn.style.background = '';
         editToggleBtn.style.color = '';
         saveAllBtn.style.display = 'none';
+        addBtn.disabled = true;
+        addBtn.title = 'Enable Edit mode to add a row';
       }
     }
 
@@ -862,7 +879,7 @@
               <input class="status-checkbox" type="checkbox" ${doneChecked} data-field="done" ${disabledAttr} />
             </td>
             <td><input class="table-input" type="text" value="${escapeHtml(t.remark)}" data-field="remark" placeholder="Optional" ${disabledAttr} /></td>
-            <td><button class="delete-row" data-id="${t.id}" title="Delete row"><i class="fas fa-trash-alt"></i></button></td>
+            <td><button class="delete-row" data-id="${t.id}" title="Delete row" ${disabledAttr}><i class="fas fa-trash-alt"></i></button></td>
           </tr>
         `;
       });
@@ -933,11 +950,10 @@ if (tasks.length === 0) {
   saveTasks();
 }
 
-// Render initially
+// Render local data immediately, then replace it with the shared Sheet data when available.
 renderTable();
-
-// Default to view mode
 setEditMode(false);
+loadDataFromSheet();
 
 console.log('✅ TaskFlow ready with Save All concept. Edit toggles inputs, Save All collects data.');
   })();
