@@ -644,7 +644,7 @@
         ];
       }
       tasks = tasks.map(t => ({
-        id: t.id || Date.now() + Math.random(),
+        id: String(t.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`),
         tool: t.tool || '',
         scope: t.scope || 'Newtool',
         design: t.design || '',
@@ -667,7 +667,7 @@
         
         if (result.success && Array.isArray(result.tasks)) {
           tasks = result.tasks.map(t => ({
-            id: t.id || Date.now() + Math.random(),
+            id: String(t.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`),
             tool: t.tool || '', scope: t.scope || 'Newtool', design: t.design || '',
             maker: t.maker || '', date: t.date || getTodayStr(), planned: t.planned || '',
             done: t.done === true || t.done === 'true', remark: t.remark || ''
@@ -722,8 +722,8 @@
     function collectTableDataIntoMemory() {
       const rows = taskBody.querySelectorAll('tr[data-id]');
       rows.forEach(row => {
-        const id = parseInt(row.dataset.id);
-        const task = tasks.find(t => t.id === id);
+        const id = row.dataset.id;
+        const task = tasks.find(t => String(t.id) === id);
         if (task) {
           task.tool = row.querySelector('[data-field="tool"]').value;
           task.scope = row.querySelector('[data-field="scope"]').value;
@@ -890,8 +890,8 @@
       taskBody.querySelectorAll('.delete-row').forEach(btn => {
         btn.addEventListener('click', function() {
           if (!confirm('Delete this row?')) return;
-          const id = parseInt(this.dataset.id);
-          tasks = tasks.filter(t => t.id !== id);
+          const id = this.dataset.id;
+          tasks = tasks.filter(t => String(t.id) !== id);
           saveTasks();
           renderTable();
           // If we're in edit mode, keep it
@@ -909,7 +909,7 @@
     // ----- Add new row -----
     function addNewRow() {
       const newTask = {
-        id: Date.now() + Math.random() * 1000,
+        id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
         tool: '',
         scope: 'Newtool',
         design: '',
