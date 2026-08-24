@@ -651,27 +651,27 @@
         remark: t.remark || ''
       }));
       saveTasks();
+    }
 
-      // ----- Load data from Google Sheets -----
-      async function loadDataFromSheet() {
-        const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec'; // 👈 Same URL
+    // ----- Load data from Google Sheets (NOW OUTSIDE loadTasks) -----
+    async function loadDataFromSheet() {
+      const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec';
 
-        try {
-          const response = await fetch(webAppUrl);
-          const result = await response.json();
-          
-          if (result.success && result.tasks && result.tasks.length > 0) {
-            tasks = result.tasks;
-            saveTasks(); // save to localStorage as backup
-            renderTable();
-            console.log('✅ Data loaded from Google Sheets.');
-          } else {
-            console.log('ℹ️ No data in Google Sheets, using local backup.');
-          }
-        } catch (error) {
-          console.error('❌ Failed to load from Google Sheets:', error);
-          console.log('Using local storage data.');
+      try {
+        const response = await fetch(webAppUrl);
+        const result = await response.json();
+        
+        if (result.success && result.tasks && result.tasks.length > 0) {
+          tasks = result.tasks;
+          saveTasks(); // save to localStorage as backup
+          renderTable();
+          console.log('✅ Data loaded from Google Sheets.');
+        } else {
+          console.log('ℹ️ No data in Google Sheets, using local backup.');
         }
+      } catch (error) {
+        console.error('❌ Failed to load from Google Sheets:', error);
+        console.log('Using local storage data.');
       }
     }
 
