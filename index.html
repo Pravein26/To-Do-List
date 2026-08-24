@@ -728,45 +728,49 @@
       });
     }
 
-    // ----- Save All (called from button) -----
     async function handleSaveAll() {
-      // 1. Read all data from the table into the tasks array
-      collectTableDataIntoMemory();
+  // 1. Read all data from the table into the tasks array
+  collectTableDataIntoMemory();
 
-      // 2. Apply auto-carry-over logic (in case dates changed)
-      autoCarryOver();
+  // 2. Apply auto-carry-over logic (in case dates changed)
+  autoCarryOver();
 
-      // 3. Save to localStorage
-      saveTasks();
+  // 3. Save to localStorage
+  saveTasks();
 
-      // 4. Silently send data to Google Sheets (no-cors, no response reading)
-      const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec';
+  // 4. Send data to Google Sheets (normal fetch, no 'no-cors')
+  const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec';
 
-      try {
-        await fetch(webAppUrl, {
-          method: 'POST',
-          mode: 'no-cors', // ← this avoids CORS preflight
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ tasks: tasks })
-        });
-        // With no-cors we can't read the response, but the request is sent.
-        console.log('✅ Data sent to Google Sheets (no-cors). Check your sheet manually.');
-      } catch (error) {
-        console.error('❌ Network error while saving to Google Sheets:', error);
-        // Don't alert the user – it's a silent backup that failed.
-      }
+  try {
+    const response = await fetch(webAppUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ tasks: tasks })
+    });
 
-      // 5. Turn off edit mode
-      setEditMode(false);
-
-      // 6. Re-render to update colors and serials
-      renderTable();
-
-      // 7. Show success (localStorage is always saved)
-      alert('✅ All changes saved successfully! (localStorage)');
+    const result = await response.json();
+    if (result.success) {
+      console.log('✅ Google Sheets update successful:', result.message);
+    } else {
+      console.error('❌ Google Sheets error:', result.error);
+      alert('Save to Google Sheets failed: ' + result.error);
     }
+  } catch (error) {
+    console.error('❌ Network error while saving to Google Sheets:', error);
+    alert('Network error: ' + error.message);
+  }
+
+  // 5. Turn off edit mode
+  setEditMode(false);
+
+  // 6. Re-render to update colors and serials
+  renderTable();
+
+  // 7. Feedback
+  alert('✅ All changes saved successfully! (localStorage)');
+}
     // ----- Toggle Edit Mode -----
     function setEditMode(mode) {
       editMode = mode;
