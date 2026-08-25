@@ -288,6 +288,11 @@
       color: #3b82f6;
       margin-right: 8px;
     }
+    .dashboard-date {
+      color: #64748b;
+      font-size: 14px;
+      margin-top: 6px;
+    }
     .add-row-btn {
       background: #3b82f6;
       color: #fff;
@@ -554,7 +559,10 @@
 <!-- ===== DASHBOARD ===== -->
 <section id="dashboard" class="page">
   <div class="dashboard-header">
-    <h2><i class="fas fa-clipboard-list"></i> Regular List</h2>
+    <div>
+      <h2><i class="fas fa-clipboard-list"></i> Regular List</h2>
+      <p class="dashboard-date">Written date: <span id="dashboardDate"></span></p>
+    </div>
     <div class="header-actions"style="margin-top:30px">
       <button class="add-row-btn" id="addRowBtn" disabled title="Enable Edit mode to add a row"><i class="fas fa-plus-circle"></i> Add Row</button><br>
       <button class="action-btn btn-secondary" id="editToggleBtn"><i class="fas fa-pen"></i> Edit</button>
@@ -571,9 +579,11 @@
           <th>Scope</th>
           <th>Design</th>
           <th>Tool Maker</th>
-          <th>Completion Date</th>
+          <th>Written Date</th>
+          <th>Target</th>
           <th>Planned Activities</th>
           <th>Done?</th>
+          <th>Completed On</th>
           <th>Remarks</th>
           <th style="width:40px;"></th>
         </tr>
@@ -585,7 +595,7 @@
   </div>
   <div style="margin-top:16px; display:flex; gap:14px; flex-wrap:wrap; font-size:13px; color:#475569;">
     <span><span style="display:inline-block; width:14px; height:14px; background:#82d182; border-radius:4px; vertical-align:middle; margin-right:6px;"></span> Completed (Green)</span>
-    <span><span style="display:inline-block; width:14px; height:14px; background:#c47777; border-radius:4px; vertical-align:middle; margin-right:6px;"></span> Overdue / Incomplete (Red) – auto‑carried to tomorrow</span>
+    <span><span style="display:inline-block; width:14px; height:14px; background:#c47777; border-radius:4px; vertical-align:middle; margin-right:6px;"></span> Previous incomplete task (Red)</span>
     <span><span style="display:inline-block; width:14px; height:14px; background:#dfce90; border-radius:4px; vertical-align:middle; margin-right:6px;"></span> Pending / Today (Yellow)</span>
   </div>
 </section>
@@ -602,6 +612,7 @@
     const addBtn = document.getElementById('addRowBtn');
     const editToggleBtn = document.getElementById('editToggleBtn');
     const saveAllBtn = document.getElementById('saveAllBtn');
+    const dashboardDate = document.getElementById('dashboardDate');
 
     // ----- Global state -----
     let editMode = false;
@@ -638,9 +649,9 @@
         try { tasks = JSON.parse(stored); } catch(e) { tasks = []; }
       } else {
         tasks = [
-          { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Anna', maker: 'John', date: getTodayStr(), planned: 'CAD model review', done: false, remark: '' },
-          { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Paul', maker: 'Sara', date: getYesterdayStr(), planned: 'Update fixtures', done: false, remark: '' },
-          { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Lisa', maker: 'Mike', date: getTodayStr(), planned: 'Final inspection', done: true, remark: 'Approved' },
+          { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Anna', maker: 'John', writtenDate: getTodayStr(), targetDate: '', planned: 'CAD model review', done: false, completedDate: '', remark: '' },
+          { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Paul', maker: 'Sara', writtenDate: getYesterdayStr(), targetDate: '', planned: 'Update fixtures', done: false, completedDate: '', remark: '' },
+          { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Lisa', maker: 'Mike', writtenDate: getTodayStr(), targetDate: '', planned: 'Final inspection', done: true, completedDate: getTodayStr(), remark: 'Approved' },
         ];
       }
       tasks = tasks.map(t => ({
@@ -649,9 +660,11 @@
         scope: t.scope || 'Newtool',
         design: t.design || '',
         maker: t.maker || '',
-        date: t.date || getTodayStr(),
+        writtenDate: t.writtenDate || getTodayStr(),
+        targetDate: t.targetDate || t.date || '',
         planned: t.planned || '',
-        done: t.done || false,
+        done: t.done === true || t.done === 'true',
+        completedDate: t.completedDate || '',
         remark: t.remark || ''
       }));
       saveTasks();
@@ -669,8 +682,9 @@
           tasks = result.tasks.map(t => ({
             id: String(t.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`),
             tool: t.tool || '', scope: t.scope || 'Newtool', design: t.design || '',
-            maker: t.maker || '', date: t.date || getTodayStr(), planned: t.planned || '',
-            done: t.done === true || t.done === 'true', remark: t.remark || ''
+            maker: t.maker || '', writtenDate: t.writtenDate || getTodayStr(),
+            targetDate: t.targetDate || t.date || '', planned: t.planned || '',
+            done: t.done === true || t.done === 'true', completedDate: t.completedDate || '', remark: t.remark || ''
           }));
           saveTasks(); // save to localStorage as backup
           renderTable();
@@ -690,34 +704,24 @@
 
     function getTodayStr() {
       const d = new Date();
-      return d.toISOString().split('T')[0];
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${d.getFullYear()}-${month}-${day}`;
     }
+
     function getYesterdayStr() {
       const d = new Date();
       d.setDate(d.getDate() - 1);
-      return d.toISOString().split('T')[0];
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${d.getFullYear()}-${month}-${day}`;
     }
 
-    // ----- Carry‑over logic -----
-    function autoCarryOver() {
-      const today = new Date();
-      today.setHours(0,0,0,0);
-      let changed = false;
-      tasks = tasks.map(t => {
-        if (!t.done && t.date) {
-          const taskDate = new Date(t.date + 'T00:00:00');
-          if (taskDate < today) {
-            const newDate = new Date(today);
-            newDate.setDate(today.getDate() + 1);
-            t.date = newDate.toISOString().split('T')[0];
-            changed = true;
-          }
-        }
-        return t;
-      });
-      if (changed) saveTasks();
+    function updateDashboardDate() {
+      dashboardDate.textContent = new Intl.DateTimeFormat('en-GB', {
+        day: '2-digit', month: 'long', year: 'numeric'
+      }).format(new Date());
     }
-
     // ----- Helper: collect data from DOM into tasks array (without saving) -----
     function collectTableDataIntoMemory() {
       const rows = taskBody.querySelectorAll('tr[data-id]');
@@ -729,9 +733,10 @@
           task.scope = row.querySelector('[data-field="scope"]').value;
           task.design = row.querySelector('[data-field="design"]').value;
           task.maker = row.querySelector('[data-field="maker"]').value;
-          task.date = row.querySelector('[data-field="date"]').value;
+          task.targetDate = row.querySelector('[data-field="targetDate"]').value;
           task.planned = row.querySelector('[data-field="planned"]').value;
           task.done = row.querySelector('[data-field="done"]').checked;
+          task.completedDate = task.done ? (task.completedDate || getTodayStr()) : '';
           task.remark = row.querySelector('[data-field="remark"]').value;
         }
       });
@@ -742,13 +747,10 @@
       // 1. Read all data from the table into the tasks array
       collectTableDataIntoMemory();
 
-      // 2. Apply auto-carry-over logic (in case dates changed)
-      autoCarryOver();
-
-      // 3. Save to localStorage
+      // 2. Save to localStorage
       saveTasks();
 
-      // 4. Send data to Google Sheets (use text/plain to avoid preflight)
+      // 3. Send data to Google Sheets (use text/plain to avoid preflight)
       const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec';
 
       let sheetSaved = false;
@@ -774,13 +776,13 @@
         alert('Network error: ' + error.message);
       }
 
-      // 5. Turn off edit mode
+      // 4. Turn off edit mode
       setEditMode(false);
 
-      // 6. Re-render to update colors and serials
+      // 5. Re-render to update colors and serials
       renderTable();
 
-      // 7. Feedback
+      // 6. Feedback
       alert(sheetSaved
         ? '✅ All changes saved to Google Sheets and this browser.'
         : '⚠️ Changes were saved only in this browser. Google Sheets was not updated.');
@@ -829,11 +831,15 @@
 
     // ----- Render table -----
     function renderTable() {
-      autoCarryOver();
+      updateDashboardDate();
+      const today = getTodayStr();
+      const visibleTasks = tasks.filter(t =>
+        t.writtenDate === today || t.completedDate === today || !t.done
+      );
 
-      if (tasks.length === 0) {
+      if (visibleTasks.length === 0) {
         taskBody.innerHTML = `
-          <tr><td colspan="10">
+          <tr><td colspan="12">
             <div class="empty-state">
               <i class="fas fa-inbox"></i>
               <p>No tasks yet. Click "Add Row" to start planning.</p>
@@ -844,7 +850,7 @@
       }
 
       let html = '';
-      tasks.forEach((t, index) => {
+      visibleTasks.forEach((t, index) => {
         const serial = index + 1;
         const doneChecked = t.done ? 'checked' : '';
 
@@ -852,10 +858,7 @@
         if (t.done) {
           statusClass = 'status-green';
         } else {
-          const today = new Date();
-          today.setHours(0,0,0,0);
-          const taskDate = new Date(t.date + 'T00:00:00');
-          if (taskDate < today) statusClass = 'status-red';
+          if (t.writtenDate < today) statusClass = 'status-red';
           else statusClass = 'status-yellow';
         }
 
@@ -873,11 +876,13 @@
             </td>
             <td><input class="table-input" type="text" value="${escapeHtml(t.design)}" data-field="design" placeholder="Name" ${disabledAttr} /></td>
             <td><input class="table-input" type="text" value="${escapeHtml(t.maker)}" data-field="maker" placeholder="Name" ${disabledAttr} /></td>
-            <td><input class="table-input" type="date" value="${t.date}" data-field="date" ${disabledAttr} /></td>
+            <td>${escapeHtml(t.writtenDate)}</td>
+            <td><input class="table-input" type="date" value="${t.targetDate}" data-field="targetDate" ${disabledAttr} /></td>
             <td><input class="table-input" type="text" value="${escapeHtml(t.planned)}" data-field="planned" placeholder="Today's activities" ${disabledAttr} /></td>
             <td style="text-align:center;">
               <input class="status-checkbox" type="checkbox" ${doneChecked} data-field="done" ${disabledAttr} />
             </td>
+            <td>${escapeHtml(t.completedDate)}</td>
             <td><input class="table-input" type="text" value="${escapeHtml(t.remark)}" data-field="remark" placeholder="Optional" ${disabledAttr} /></td>
             <td><button class="delete-row" data-id="${t.id}" title="Delete row" ${disabledAttr}><i class="fas fa-trash-alt"></i></button></td>
           </tr>
@@ -914,9 +919,11 @@
         scope: 'Newtool',
         design: '',
         maker: '',
-        date: getTodayStr(),
+        writtenDate: getTodayStr(),
+        targetDate: '',
         planned: '',
         done: false,
+        completedDate: '',
         remark: ''
       };
       tasks.push(newTask);
@@ -943,9 +950,9 @@ loadTasks();
 // If no tasks after loading (should not happen because loadTasks seeds data)
 if (tasks.length === 0) {
   tasks = [
-    { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Anna', maker: 'John', date: getTodayStr(), planned: 'CAD model review', done: false, remark: '' },
-    { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Paul', maker: 'Sara', date: getYesterdayStr(), planned: 'Update fixtures', done: false, remark: '' },
-    { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Lisa', maker: 'Mike', date: getTodayStr(), planned: 'Final inspection', done: true, remark: 'Approved' },
+    { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Anna', maker: 'John', writtenDate: getTodayStr(), targetDate: '', planned: 'CAD model review', done: false, completedDate: '', remark: '' },
+    { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Paul', maker: 'Sara', writtenDate: getYesterdayStr(), targetDate: '', planned: 'Update fixtures', done: false, completedDate: '', remark: '' },
+    { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Lisa', maker: 'Mike', writtenDate: getTodayStr(), targetDate: '', planned: 'Final inspection', done: true, completedDate: getTodayStr(), remark: 'Approved' },
   ];
   saveTasks();
 }
