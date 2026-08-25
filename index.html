@@ -567,7 +567,7 @@
   <div class="dashboard-header">
     <div>
       <h2><i class="fas fa-clipboard-list"></i> Regular List</h2>
-      <p class="dashboard-date">Written date: <span id="dashboardDate"></span></p>
+      <p class="dashboard-date"> <span id="dashboardDate"></span></p>
     </div>
     <div class="header-actions"style="margin-top:30px">
       <button class="add-row-btn" id="addRowBtn" disabled title="Enable Edit mode to add a row"><i class="fas fa-plus-circle"></i> Add Row</button><br>
@@ -668,6 +668,8 @@
         maker: t.maker || '',
         writtenDate: t.writtenDate || getTodayStr(),
         targetDate: t.targetDate || t.date || '',
+        // Retain the legacy name until the deployed Apps Script is updated.
+        date: t.targetDate || t.date || '',
         planned: t.planned || '',
         done: t.done === true || t.done === 'true',
         completedDate: t.completedDate || '',
@@ -690,6 +692,7 @@
             tool: t.tool || '', scope: t.scope || 'Newtool', design: t.design || '',
             maker: t.maker || '', writtenDate: t.writtenDate || getTodayStr(),
             targetDate: t.targetDate || t.date || '', planned: t.planned || '',
+            date: t.targetDate || t.date || '',
             done: t.done === true || t.done === 'true', completedDate: t.completedDate || '', remark: t.remark || ''
           }));
           saveTasks(); // save to localStorage as backup
@@ -740,6 +743,7 @@
           task.design = row.querySelector('[data-field="design"]').value;
           task.maker = row.querySelector('[data-field="maker"]').value;
           task.targetDate = row.querySelector('[data-field="targetDate"]').value;
+          task.date = task.targetDate; // Required by the currently deployed legacy backend.
           task.planned = row.querySelector('[data-field="planned"]').value;
           task.done = row.querySelector('[data-field="done"]').checked;
           task.completedDate = task.done ? (task.completedDate || getTodayStr()) : '';
