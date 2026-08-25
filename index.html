@@ -443,6 +443,12 @@
       appearance: auto;
       padding-right: 24px;
     }
+    .planned-activities {
+      min-width: 260px;
+      min-height: 88px;
+      line-height: 1.45;
+      resize: vertical;
+    }
     .status-checkbox {
       width: 20px;
       height: 20px;
@@ -760,7 +766,10 @@
           headers: {
             'Content-Type': 'text/plain',   // 👈 Prevents preflight
           },
-          body: JSON.stringify({ tasks: tasks })   // Still JSON, but sent as plain text
+          // `date` keeps the save compatible with the previous Apps Script version.
+          body: JSON.stringify({
+            tasks: tasks.map(task => ({ ...task, date: task.targetDate }))
+          })
         });
 
         const result = await response.json();
@@ -792,7 +801,7 @@
       editMode = mode;
       const inputs = document.querySelectorAll('#taskTableBody .table-input, #taskTableBody .status-checkbox');
       inputs.forEach(el => {
-        if (el.tagName === 'SELECT' || el.tagName === 'INPUT') {
+        if (el.tagName === 'SELECT' || el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
           el.disabled = !editMode;
         }
       });
@@ -878,7 +887,7 @@
             <td><input class="table-input" type="text" value="${escapeHtml(t.maker)}" data-field="maker" placeholder="Name" ${disabledAttr} /></td>
             <td>${escapeHtml(t.writtenDate)}</td>
             <td><input class="table-input" type="date" value="${t.targetDate}" data-field="targetDate" ${disabledAttr} /></td>
-            <td><input class="table-input" type="text" value="${escapeHtml(t.planned)}" data-field="planned" placeholder="Today's activities" ${disabledAttr} /></td>
+            <td><textarea class="table-input planned-activities" data-field="planned" placeholder="Today's activities" ${disabledAttr}>${escapeHtml(t.planned)}</textarea></td>
             <td style="text-align:center;">
               <input class="status-checkbox" type="checkbox" ${doneChecked} data-field="done" ${disabledAttr} />
             </td>
