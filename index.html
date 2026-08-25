@@ -667,9 +667,9 @@
         design: t.design || '',
         maker: t.maker || '',
         writtenDate: t.writtenDate || getTodayStr(),
-        targetDate: t.targetDate || t.date || '',
+        targetDate: normalizeDateValue(t.targetDate || t.date),
         // Retain the legacy name until the deployed Apps Script is updated.
-        date: t.targetDate || t.date || '',
+        date: normalizeDateValue(t.targetDate || t.date),
         planned: t.planned || '',
         done: t.done === true || t.done === 'true',
         completedDate: t.completedDate || '',
@@ -691,8 +691,8 @@
             id: String(t.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`),
             tool: t.tool || '', scope: t.scope || 'Newtool', design: t.design || '',
             maker: t.maker || '', writtenDate: t.writtenDate || getTodayStr(),
-            targetDate: t.targetDate || t.date || '', planned: t.planned || '',
-            date: t.targetDate || t.date || '',
+            targetDate: normalizeDateValue(t.targetDate || t.date), planned: t.planned || '',
+            date: normalizeDateValue(t.targetDate || t.date),
             done: t.done === true || t.done === 'true', completedDate: t.completedDate || '', remark: t.remark || ''
           }));
           saveTasks(); // save to localStorage as backup
@@ -712,18 +712,27 @@
     }
 
     function getTodayStr() {
-      const d = new Date();
+      return formatLocalDate(new Date());
+    }
+
+    function formatLocalDate(d) {
       const month = String(d.getMonth() + 1).padStart(2, '0');
       const day = String(d.getDate()).padStart(2, '0');
       return `${d.getFullYear()}-${month}-${day}`;
     }
 
+    function normalizeDateValue(value) {
+      if (!value) return '';
+      const text = String(value);
+      if (/^\d{4}-\d{2}-\d{2}$/.test(text)) return text;
+      const parsed = new Date(text);
+      return Number.isNaN(parsed.getTime()) ? '' : formatLocalDate(parsed);
+    }
+
     function getYesterdayStr() {
       const d = new Date();
       d.setDate(d.getDate() - 1);
-      const month = String(d.getMonth() + 1).padStart(2, '0');
-      const day = String(d.getDate()).padStart(2, '0');
-      return `${d.getFullYear()}-${month}-${day}`;
+      return formatLocalDate(d);
     }
 
     function updateDashboardDate() {
