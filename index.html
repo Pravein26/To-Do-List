@@ -537,7 +537,7 @@
 </header>
 
 <!-- ===== PAGE 1: LANDING ===== -->
-<section id="landing" class="page active">
+<section id="landing" class="page active"> 
   <div class="landing-image">
     <i class="fas fa-tasks"></i>
   </div>
@@ -687,14 +687,24 @@
         const result = await response.json();
         
         if (result.success && Array.isArray(result.tasks)) {
-          tasks = result.tasks.map(t => ({
-            id: String(t.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`),
-            tool: t.tool || '', scope: t.scope || 'Newtool', design: t.design || '',
-            maker: t.maker || '', writtenDate: t.writtenDate || getTodayStr(),
-            targetDate: normalizeDateValue(t.targetDate || t.date), planned: t.planned || '',
-            date: normalizeDateValue(t.targetDate || t.date),
-            done: t.done === true || t.done === 'true', completedDate: t.completedDate || '', remark: t.remark || ''
-          }));
+          // The previous backend did not return Written Date or Completed On.
+          // Preserve those locally stored values by task ID until the new backend is deployed.
+          const localTasksById = new Map(tasks.map(task => [String(task.id), task]));
+          tasks = result.tasks.map(t => {
+            const localTask = localTasksById.get(String(t.id)) || {};
+            return {
+              ...localTask,
+              id: String(t.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`),
+              tool: t.tool || '', scope: t.scope || 'Newtool', design: t.design || '',
+              maker: t.maker || '',
+              writtenDate: normalizeDateValue(t.writtenDate) || localTask.writtenDate || getTodayStr(),
+              targetDate: normalizeDateValue(t.targetDate || t.date), planned: t.planned || '',
+              date: normalizeDateValue(t.targetDate || t.date),
+              done: t.done === true || t.done === 'true',
+              completedDate: normalizeDateValue(t.completedDate) || localTask.completedDate || '',
+              remark: t.remark || ''
+            };
+          });
           saveTasks(); // save to localStorage as backup
           renderTable();
           console.log('✅ Data loaded from Google Sheets.');
