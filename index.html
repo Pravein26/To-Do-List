@@ -507,6 +507,29 @@
       .header-actions { justify-content: stretch; }
       .header-actions button { flex: 1; justify-content: center; }
     }
+
+    /* ----- CUSTOM LISTS ----- */
+    .custom-layout { display:grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap:24px; }
+    .custom-card { background:#fff; border:1px solid #e2e8f0; border-radius:18px; padding:22px; box-shadow:0 4px 16px rgba(15,23,42,.04); }
+    .custom-card h3 { margin-bottom:16px; font-size:19px; }
+    .custom-form-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
+    .custom-form-grid label, .lhs-editor label { display:grid; gap:6px; font-size:13px; font-weight:600; color:#475569; }
+    .custom-form-grid input, .lhs-editor input, .custom-sheet-input { width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px; font:inherit; }
+    .lhs-editor { margin:16px 0; display:grid; gap:8px; }
+    .lhs-row { display:grid; grid-template-columns:1fr 36px; gap:8px; }
+    .icon-btn { border:0; border-radius:8px; background:#fee2e2; color:#b91c1c; font-size:17px; }
+    .template-grid { overflow:auto; margin-top:18px; }
+    .template-grid table { min-width:620px; }
+    .template-grid input { width:100%; min-width:100px; padding:7px; border:1px solid #cbd5e1; border-radius:6px; font:inherit; }
+    .template-grid .fixed-cell { background:#f1f5f9; color:#334155; }
+    .template-list { display:grid; gap:10px; }
+    .template-item { text-align:left; border:1px solid #dbeafe; background:#f8fbff; border-radius:10px; padding:12px; font:inherit; }
+    .template-item:hover { background:#eff6ff; }
+    .instance-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-top:16px; }
+    .instance-card { border:1px solid #bfdbfe; background:#fff; border-radius:10px; padding:14px; font:inherit; text-align:left; }
+    .sheet-meta { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:18px 0; }
+    .sheet-title { font-size:25px; margin-bottom:4px; }
+    @media (max-width: 900px) { .custom-layout { grid-template-columns:1fr; } .custom-form-grid,.sheet-meta { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
@@ -555,11 +578,33 @@
       <button class="decider-btn regular" id="goRegular">
         <i class="fas fa-list-ul"></i> Regular List
       </button>
-      <button class="decider-btn custom" id="goCustom" disabled style="opacity:0.5; cursor:not-allowed;">
-        <i class="fas fa-pen-fancy"></i> Custom List <small style="font-weight:400;color:#94a3b8;">(coming soon)</small>
+      <button class="decider-btn custom" id="goCustom">
+        <i class="fas fa-pen-fancy"></i> Custom List
       </button>
     </div>
   </div>
+</section>
+
+<!-- ===== CUSTOM LISTS ===== -->
+<section id="custom" class="page">
+  <div id="customHome" class="custom-layout">
+    <div class="custom-card">
+      <h3><i class="fas fa-plus-circle"></i> New Template</h3>
+      <div class="custom-form-grid">
+        <label>Main title<input id="customTitle" type="text" placeholder="e.g. Tool Inspection" /></label>
+        <label>Number of rows<input id="customRows" type="number" min="1" max="100" value="5" /></label>
+        <label>Number of columns<input id="customCols" type="number" min="1" max="20" value="4" /></label>
+        <label>Numbered check sheets<input id="customCopies" type="number" min="1" max="100" value="1" /></label>
+      </div>
+      <div class="lhs-editor"><strong>Above-table labels (LHS)</strong><div id="lhsFields"></div><button class="btn-secondary action-btn" type="button" id="addLhsBtn">Add LHS label</button></div>
+      <button class="btn-primary" id="buildTemplateBtn">Build template</button>
+      <div id="templateBuilder" class="template-grid" hidden></div>
+      <button class="action-btn btn-success" id="saveTemplateBtn" hidden style="margin-top:16px;">Save template and create sheets</button>
+    </div>
+    <div class="custom-card"><h3><i class="fas fa-copy"></i> Created Templates</h3><div id="templateList" class="template-list"></div></div>
+  </div>
+  <div id="customInstances" class="custom-card" hidden></div>
+  <div id="customSheet" class="custom-card" hidden></div>
 </section>
 
 <!-- ===== DASHBOARD ===== -->
@@ -975,6 +1020,107 @@
     }
 
     addBtn.addEventListener('click', addNewRow);
+
+    // ----- Custom lists -----
+    const customPage = document.getElementById('custom');
+    const customHome = document.getElementById('customHome');
+    const customInstances = document.getElementById('customInstances');
+    const customSheet = document.getElementById('customSheet');
+    const lhsFields = document.getElementById('lhsFields');
+    const templateBuilder = document.getElementById('templateBuilder');
+    const saveTemplateBtn = document.getElementById('saveTemplateBtn');
+    const CUSTOM_KEY = 'taskflow_custom_lists';
+    let customData = { templates: [], instances: [] };
+
+    function addLhsField(value = '') {
+      const row = document.createElement('div');
+      row.className = 'lhs-row';
+      row.innerHTML = `<input type="text" class="lhs-label" placeholder="e.g. Part No" value="${escapeHtml(value)}"><button class="icon-btn" type="button" title="Remove">×</button>`;
+      row.querySelector('button').addEventListener('click', () => row.remove());
+      lhsFields.appendChild(row);
+    }
+    addLhsField('Part No'); addLhsField('Part Name');
+    document.getElementById('addLhsBtn').addEventListener('click', () => addLhsField());
+    document.getElementById('goCustom').addEventListener('click', async () => {
+      showPage('custom'); renderCustomHome(); await loadCustomRemote(); renderCustomHome();
+    });
+
+    function loadCustomData() {
+      try { customData = JSON.parse(localStorage.getItem(CUSTOM_KEY)) || customData; } catch (_) {}
+    }
+    function saveCustomData() { localStorage.setItem(CUSTOM_KEY, JSON.stringify(customData)); }
+    function customId() { return `${Date.now()}-${Math.random().toString(36).slice(2)}`; }
+    function showCustomView(view) {
+      customHome.hidden = view !== 'home'; customInstances.hidden = view !== 'instances'; customSheet.hidden = view !== 'sheet';
+    }
+    function renderCustomHome() {
+      showCustomView('home');
+      const list = document.getElementById('templateList');
+      if (!customData.templates.length) { list.innerHTML = '<p style="color:#64748b">No templates created yet.</p>'; return; }
+      list.innerHTML = customData.templates.map(t => `<button class="template-item" data-template-id="${t.id}"><strong>${escapeHtml(t.title)}</strong><br><small>${t.rows} rows · ${t.columns.length} columns · ${t.copies} sheets</small></button>`).join('');
+      list.querySelectorAll('button').forEach(button => button.addEventListener('click', () => renderInstances(button.dataset.templateId)));
+    }
+    document.getElementById('buildTemplateBtn').addEventListener('click', () => {
+      const rows = Number(document.getElementById('customRows').value);
+      const cols = Number(document.getElementById('customCols').value);
+      if (!Number.isInteger(rows) || rows < 1 || !Number.isInteger(cols) || cols < 1) return alert('Enter at least one row and one column.');
+      let html = '<table><thead><tr><th>Sl. No</th>';
+      for (let c = 0; c < cols; c++) html += `<th><input class="column-title" placeholder="Column ${c + 1}"></th>`;
+      html += '</tr></thead><tbody>';
+      for (let r = 0; r < rows; r++) { html += `<tr><td>${r + 1}</td>`; for (let c = 0; c < cols; c++) html += `<td><input class="template-cell" data-row="${r}" data-col="${c}" placeholder="Optional fixed value"></td>`; html += '</tr>'; }
+      templateBuilder.innerHTML = html + '</tbody></table>'; templateBuilder.hidden = false; saveTemplateBtn.hidden = false;
+    });
+    saveTemplateBtn.addEventListener('click', async () => {
+      const title = document.getElementById('customTitle').value.trim();
+      const rows = Number(document.getElementById('customRows').value), copies = Number(document.getElementById('customCopies').value);
+      const columns = [...templateBuilder.querySelectorAll('.column-title')].map((input, i) => input.value.trim() || `Column ${i + 1}`);
+      const lhs = [...lhsFields.querySelectorAll('.lhs-label')].map(input => input.value.trim()).filter(Boolean);
+      if (!title || !columns.length || !Number.isInteger(copies) || copies < 1) return alert('Enter a main title, columns, and number of check sheets.');
+      const fixedCells = Array.from({ length: rows }, () => Array(columns.length).fill(''));
+      templateBuilder.querySelectorAll('.template-cell').forEach(input => fixedCells[input.dataset.row][input.dataset.col] = input.value);
+      const template = { id: customId(), title, rows, columns, lhs, fixedCells, copies, createdAt: getTodayStr() };
+      customData.templates.push(template);
+      for (let i = 1; i <= copies; i++) customData.instances.push({ id: customId(), templateId: template.id, name: `${title}_${i}`, meta: {}, values: Array.from({ length: rows }, () => Array(columns.length).fill('')), updatedAt: '' });
+      saveCustomData(); await saveCustomRemote(); alert('Template and numbered check sheets created.');
+      document.getElementById('customTitle').value = ''; templateBuilder.hidden = true; saveTemplateBtn.hidden = true; renderCustomHome();
+    });
+    function renderInstances(templateId) {
+      const template = customData.templates.find(t => t.id === templateId); if (!template) return renderCustomHome();
+      showCustomView('instances'); const instances = customData.instances.filter(i => i.templateId === templateId);
+      customInstances.innerHTML = `<button class="btn-secondary action-btn" id="backTemplates">← Templates</button><h2 class="sheet-title">${escapeHtml(template.title)}</h2><p>Select a numbered check sheet.</p><div class="instance-list">${instances.map(i => `<button class="instance-card" data-instance-id="${i.id}"><strong>${escapeHtml(i.name)}</strong><br><small>${i.updatedAt ? 'Saved: ' + escapeHtml(i.updatedAt) : 'Not completed'}</small></button>`).join('')}</div>`;
+      document.getElementById('backTemplates').addEventListener('click', renderCustomHome);
+      customInstances.querySelectorAll('.instance-card').forEach(b => b.addEventListener('click', () => renderCustomSheet(b.dataset.instanceId)));
+    }
+    function renderCustomSheet(instanceId) {
+      const instance = customData.instances.find(i => i.id === instanceId); const template = instance && customData.templates.find(t => t.id === instance.templateId); if (!template) return renderCustomHome();
+      showCustomView('sheet');
+      const meta = template.lhs.map(label => `<label>${escapeHtml(label)}<input class="custom-sheet-input" data-meta="${escapeHtml(label)}" value="${escapeHtml(instance.meta[label] || '')}"></label>`).join('');
+      let table = '<div class="template-grid"><table><thead><tr><th>Sl. No</th>' + template.columns.map(c => `<th>${escapeHtml(c)}</th>`).join('') + '</tr></thead><tbody>';
+      for (let r = 0; r < template.rows; r++) { table += `<tr><td>${r + 1}</td>`; for (let c = 0; c < template.columns.length; c++) { const fixed = template.fixedCells[r][c]; table += fixed ? `<td class="fixed-cell">${escapeHtml(fixed)}</td>` : `<td><input class="custom-sheet-input" data-row="${r}" data-col="${c}" value="${escapeHtml(instance.values[r][c] || '')}"></td>`; } table += '</tr>'; }
+      customSheet.innerHTML = `<button class="btn-secondary action-btn" id="backInstances">← Check sheets</button><h2 class="sheet-title">${escapeHtml(instance.name)}</h2><div class="sheet-meta">${meta}</div>${table}</tbody></table></div><button class="action-btn btn-success" id="saveInstance" style="margin-top:16px">Save All</button>`;
+      document.getElementById('backInstances').addEventListener('click', () => renderInstances(template.id));
+      document.getElementById('saveInstance').addEventListener('click', async () => {
+        customSheet.querySelectorAll('[data-meta]').forEach(input => instance.meta[input.dataset.meta] = input.value);
+        customSheet.querySelectorAll('[data-row]').forEach(input => instance.values[input.dataset.row][input.dataset.col] = input.value);
+        instance.updatedAt = getTodayStr(); saveCustomData(); await saveCustomRemote(); alert('Check sheet saved.'); renderInstances(template.id);
+      });
+    }
+    async function saveCustomRemote() {
+      const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec';
+      try { await fetch(webAppUrl, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ customData }) }); } catch (_) { console.warn('Custom Lists saved locally; Sheet2 sync failed.'); }
+    }
+    async function loadCustomRemote() {
+      const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec?mode=custom';
+      try {
+        const response = await fetch(webAppUrl);
+        const result = await response.json();
+        if (result.success && result.customData && Array.isArray(result.customData.templates)) {
+          customData = result.customData;
+          saveCustomData();
+        }
+      } catch (_) { console.warn('Using locally saved Custom Lists.'); }
+    }
+    loadCustomData();
 
 // ----- Init -----
 loadTasks();
