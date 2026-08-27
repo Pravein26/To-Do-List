@@ -725,7 +725,7 @@
 
     // ----- Load data from Google Sheets (NOW OUTSIDE loadTasks) -----
     async function loadDataFromSheet() {
-      const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec';
+      const webAppUrl = 'https://script.google.com/macros/s/AKfycbxa8pLFNtLxroAsAXAvgK0jIwR_MOHD6wULjGaBzPJ3KF7cVJOUSCTEAVe8eV-hOuY/exec';
 
       try {
         const response = await fetch(webAppUrl);
@@ -825,7 +825,7 @@
       saveTasks();
 
       // 3. Send data to Google Sheets (use text/plain to avoid preflight)
-      const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkzWNqPX-1wwIXWUu7CKTNsOFVdSIBgEgcUQIesUn_2vNuc76_8Ntuf0ZggGsT1BlO/exec';
+      const webAppUrl = 'https://script.google.com/macros/s/AKfycbxa8pLFNtLxroAsAXAvgK0jIwR_MOHD6wULjGaBzPJ3KF7cVJOUSCTEAVe8eV-hOuY/exec';
 
       let sheetSaved = false;
       try {
