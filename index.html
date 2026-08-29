@@ -697,9 +697,9 @@
         try { tasks = JSON.parse(stored); } catch(e) { tasks = []; }
       } else {
         tasks = [
-          { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Anna', maker: 'John', writtenDate: getTodayStr(), targetDate: '', planned: 'CAD model review', done: false, completedDate: '', remark: '' },
-          { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Paul', maker: 'Sara', writtenDate: getYesterdayStr(), targetDate: '', planned: 'Update fixtures', done: false, completedDate: '', remark: '' },
-          { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Lisa', maker: 'Mike', writtenDate: getTodayStr(), targetDate: '', planned: 'Final inspection', done: true, completedDate: getTodayStr(), remark: 'Approved' },
+          { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Name', maker: 'Name', writtenDate: getTodayStr(), targetDate: '', planned: 'CAD model review', done: false, completedDate: '', remark: '' },
+          { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Name', maker: 'Name', writtenDate: getYesterdayStr(), targetDate: '', planned: 'Update fixtures', done: false, completedDate: '', remark: '' },
+          { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Name', maker: 'Name', writtenDate: getTodayStr(), targetDate: '', planned: 'Final inspection', done: true, completedDate: getTodayStr(), remark: 'Approved' },
         ];
       }
       tasks = tasks.map(t => ({
@@ -1125,9 +1125,9 @@ loadTasks();
 // If no tasks after loading (should not happen because loadTasks seeds data)
 if (tasks.length === 0) {
   tasks = [
-    { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Anna', maker: 'John', writtenDate: getTodayStr(), targetDate: '', planned: 'CAD model review', done: false, completedDate: '', remark: '' },
-    { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Paul', maker: 'Sara', writtenDate: getYesterdayStr(), targetDate: '', planned: 'Update fixtures', done: false, completedDate: '', remark: '' },
-    { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Lisa', maker: 'Mike', writtenDate: getTodayStr(), targetDate: '', planned: 'Final inspection', done: true, completedDate: getTodayStr(), remark: 'Approved' },
+    { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Name', maker: 'Name', writtenDate: getTodayStr(), targetDate: '', planned: 'CAD model review', done: false, completedDate: '', remark: '' },
+    { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Name', maker: 'Name', writtenDate: getYesterdayStr(), targetDate: '', planned: 'Update fixtures', done: false, completedDate: '', remark: '' },
+    { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Name', maker: 'Name', writtenDate: getTodayStr(), targetDate: '', planned: 'Final inspection', done: true, completedDate: getTodayStr(), remark: 'Approved' },
   ];
   saveTasks();
 }
