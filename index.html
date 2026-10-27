@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,12 +19,15 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: #f6f9fc;
       color: #1e293b;
-      padding-top: 100px; /* fixed header height */
+      padding-top: 100px;
+      /* fixed header height */
     }
+
     button {
       cursor: pointer;
       font-family: inherit;
@@ -43,18 +47,21 @@
       justify-content: space-between;
       padding: 0 32px;
       z-index: 1000;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
     }
+
     .header-left {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+
     .header-logo {
-       height: 10px; 
-        width: 10px;  
-        display: block;
+      height: 10px;
+      width: 10px;
+      display: block;
     }
+
     .header-company {
       font-weight: 600;
       font-size: 40px;
@@ -62,6 +69,7 @@
       color: #0f172a;
       margin-left: 80px;
     }
+
     .header-company span {
       font-weight: 400;
       color: #64748b;
@@ -70,6 +78,7 @@
     .header-right {
       position: relative;
     }
+
     .apps-btn {
       background: transparent;
       border: none;
@@ -82,9 +91,11 @@
       align-items: center;
       gap: 2px;
     }
+
     .apps-btn:hover {
       background: #f1f5f9;
     }
+
     .apps-btn i {
       font-size: 20px;
     }
@@ -96,7 +107,7 @@
       top: 52px;
       background: #ffffff;
       border-radius: 16px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
       padding: 20px 24px;
       width: 280px;
       display: none;
@@ -105,9 +116,11 @@
       border: 1px solid #eef2f6;
       z-index: 1100;
     }
+
     .apps-dropdown.open {
       display: grid;
     }
+
     .app-item {
       display: flex;
       flex-direction: column;
@@ -121,9 +134,11 @@
       font-size: 13px;
       font-weight: 500;
     }
+
     .app-item:hover {
       background: #f1f5f9;
     }
+
     .app-item i {
       font-size: 26px;
       color: #3b82f6;
@@ -137,12 +152,21 @@
       padding: 28px 32px 60px;
       animation: fadeUp 0.3s ease;
     }
+
     .page.active {
       display: block;
     }
+
     @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(12px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* ----- LANDING PAGE ----- */
@@ -150,6 +174,7 @@
       text-align: center;
       padding-top: 50px;
     }
+
     .landing-image {
       width: 100%;
       max-width: 560px;
@@ -157,13 +182,15 @@
       border-radius: 24px;
       background: linear-gradient(145deg, #dbeafe, #eff6ff);
       padding: 30px 20px;
-      box-shadow: 0 8px 30px rgba(59,130,246,0.08);
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.08);
     }
+
     .landing-image i {
       font-size: 120px;
       color: #3b82f6;
       opacity: 0.6;
     }
+
     .landing-title {
       font-size: 42px;
       font-weight: 600;
@@ -171,14 +198,17 @@
       color: #0f172a;
       margin-bottom: 16px;
     }
+
     .landing-title span {
       color: #3b82f6;
     }
+
     .landing-sub {
       font-size: 18px;
       color: #475569;
       margin-bottom: 40px;
     }
+
     .btn-primary {
       background: #3b82f6;
       color: #fff;
@@ -187,14 +217,16 @@
       font-size: 18px;
       font-weight: 500;
       border-radius: 60px;
-      box-shadow: 0 4px 14px rgba(59,130,246,0.3);
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
       transition: all 0.2s;
     }
+
     .btn-primary:hover {
       background: #2563eb;
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(59,130,246,0.35);
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
     }
+
     .btn-secondary {
       background: #f1f5f9;
       color: #1e293b;
@@ -205,6 +237,7 @@
       border-radius: 60px;
       transition: 0.2s;
     }
+
     .btn-secondary:hover {
       background: #e2e8f0;
     }
@@ -214,30 +247,35 @@
       text-align: center;
       padding-top: 50px;
     }
+
     .decider-card {
       background: #fff;
       max-width: 700px;
       margin: 0 auto;
       padding: 48px 40px;
       border-radius: 32px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.04);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.04);
       border: 1px solid #ecf1f6;
     }
+
     .decider-title {
       font-size: 28px;
       font-weight: 600;
       margin-bottom: 12px;
     }
+
     .decider-desc {
       color: #64748b;
       margin-bottom: 36px;
     }
+
     .decider-actions {
       display: flex;
       gap: 20px;
       justify-content: center;
       flex-wrap: wrap;
     }
+
     .decider-btn {
       padding: 18px 44px;
       border-radius: 60px;
@@ -248,24 +286,29 @@
       transition: 0.2s;
       min-width: 200px;
     }
+
     .decider-btn.regular {
       border-color: #3b82f6;
       background: #eff6ff;
       color: #1d4ed8;
     }
+
     .decider-btn.regular:hover {
       background: #dbeafe;
       transform: scale(1.02);
     }
+
     .decider-btn.custom {
       border-color: #8b5cf6;
       background: #f5f3ff;
       color: #6d28d9;
     }
+
     .decider-btn.custom:hover {
       background: #ede9fe;
       transform: scale(1.02);
     }
+
     .decider-btn i {
       margin-right: 8px;
     }
@@ -279,20 +322,24 @@
       gap: 16px;
       margin-bottom: 50px;
     }
+
     .dashboard-header h2 {
       font-size: 26px;
       font-weight: 600;
       letter-spacing: -0.3px;
     }
+
     .dashboard-header h2 i {
       color: #3b82f6;
       margin-right: 8px;
     }
+
     .dashboard-date {
       color: #64748b;
       font-size: 14px;
       margin-top: 6px;
     }
+
     .add-row-btn {
       background: #3b82f6;
       color: #fff;
@@ -301,12 +348,13 @@
       border-radius: 40px;
       font-weight: 500;
       font-size: 15px;
-      box-shadow: 0 2px 10px rgba(59,130,246,0.2);
+      box-shadow: 0 2px 10px rgba(59, 130, 246, 0.2);
       transition: 0.2s;
       display: flex;
       align-items: center;
       gap: 8px;
     }
+
     .add-row-btn:hover {
       background: #2563eb;
     }
@@ -322,7 +370,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
       letter-spacing: 0.2px;
     }
 
@@ -332,6 +380,7 @@
       color: #1e293b;
       border: 1px solid #e2e8f0;
     }
+
     .btn-secondary:hover {
       background: #e2e8f0;
       transform: translateY(-1px);
@@ -343,11 +392,13 @@
       color: #fff;
       border: 1px solid #16a34a;
     }
+
     .btn-success:hover {
       background: #16a34a;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(34,197,94,0.3);
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
     }
+
     .btn-success:active {
       transform: translateY(0);
     }
@@ -362,16 +413,18 @@
       overflow-x: auto;
       background: #ffffff;
       border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
       border: 2px solid #0b0c0c;
       padding: 4px 4px 0 4px;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 14px;
       min-width: 1100px;
     }
+
     th {
       background: #f8fafc;
       color: #475569;
@@ -381,11 +434,13 @@
       border-bottom: 2px solid #e2e8f0;
       white-space: nowrap;
     }
+
     td {
       padding: 10px 8px;
       border-bottom: 1px solid #edf2f7;
       vertical-align: middle;
     }
+
     tr:last-child td {
       border-bottom: none;
     }
@@ -394,23 +449,28 @@
     tr.status-green {
       background-color: #a2eaa2 !important;
     }
+
     tr.status-green td {
       background-color: #a2eaa2 !important;
     }
+
     tr.status-red {
       background-color: #d58787 !important;
     }
+
     tr.status-red td {
       background-color: #d58787 !important;
     }
+
     tr.status-yellow {
       background-color: #e7ea9b !important;
     }
+
     tr.status-yellow td {
       background-color: #e7ea9b !important;
     }
 
-     /* inputs inside table */
+    /* inputs inside table */
     .table-input {
       width: 100%;
       padding: 6px 8px;
@@ -423,6 +483,7 @@
       min-width: 110px;
       color: #1e293b;
     }
+
     .table-input:disabled {
       background: #f8fafc;
       color: #1e293b;
@@ -430,25 +491,30 @@
       border-color: transparent;
       opacity: 0.85;
     }
+
     .table-input:enabled {
       background: #ffffff;
       border-color: #3b82f6;
     }
+
     .table-input:focus:enabled {
       outline: none;
       border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
     }
+
     .table-select {
       appearance: auto;
       padding-right: 24px;
     }
+
     .planned-activities {
       min-width: 260px;
       min-height: 88px;
       line-height: 1.45;
       resize: vertical;
     }
+
     .status-checkbox {
       width: 20px;
       height: 20px;
@@ -456,15 +522,18 @@
       cursor: pointer;
       margin: 0;
     }
+
     .status-checkbox:disabled {
       cursor: default;
       opacity: 0.6;
     }
+
     .serial-badge {
       font-weight: 600;
       color: #64748b;
       text-align: center;
     }
+
     .delete-row {
       background: transparent;
       border: none;
@@ -474,10 +543,12 @@
       padding: 4px 6px;
       border-radius: 6px;
     }
+
     .delete-row:hover {
       color: #ef4444;
       background: #fee2e2;
     }
+
     .delete-row:disabled {
       cursor: not-allowed;
       opacity: 0.35;
@@ -489,430 +560,591 @@
       padding: 48px 20px;
       color: #94a3b8;
     }
+
     .empty-state i {
       font-size: 48px;
       margin-bottom: 12px;
       opacity: 0.3;
     }
-  
+
     /* Responsive */
     @media (max-width: 768px) {
-      .app-header { padding: 0 16px; }
-      .header-company { font-size: 17px; }
-      .landing-title { font-size: 30px; }
-      .decider-actions { flex-direction: column; align-items: center; }
-      .decider-btn { min-width: unset; width: 100%; max-width: 280px; }
-      .page { padding: 16px; }
-      .dashboard-header { flex-direction: column; align-items: stretch; }
-      .header-actions { justify-content: stretch; }
-      .header-actions button { flex: 1; justify-content: center; }
+      .app-header {
+        padding: 0 16px;
+      }
+
+      .header-company {
+        font-size: 17px;
+      }
+
+      .landing-title {
+        font-size: 30px;
+      }
+
+      .decider-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .decider-btn {
+        min-width: unset;
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .page {
+        padding: 16px;
+      }
+
+      .dashboard-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .header-actions {
+        justify-content: stretch;
+      }
+
+      .header-actions button {
+        flex: 1;
+        justify-content: center;
+      }
     }
 
     /* ----- CUSTOM LISTS ----- */
-    .custom-layout { display:grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap:24px; }
-    .custom-card { background:#fff; border:1px solid #e2e8f0; border-radius:18px; padding:22px; box-shadow:0 4px 16px rgba(15,23,42,.04); }
-    .custom-card h3 { margin-bottom:16px; font-size:19px; }
-    .custom-form-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
-    .custom-form-grid label, .lhs-editor label { display:grid; gap:6px; font-size:13px; font-weight:600; color:#475569; }
-    .custom-form-grid input, .lhs-editor input, .custom-sheet-input { width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px; font:inherit; }
-    .lhs-editor { margin:16px 0; display:grid; gap:8px; }
-    .lhs-row { display:grid; grid-template-columns:1fr 36px; gap:8px; }
-    .icon-btn { border:0; border-radius:8px; background:#fee2e2; color:#b91c1c; font-size:17px; }
-    .template-grid { overflow:auto; margin-top:18px; }
-    .template-grid table { min-width:620px; }
-    .template-grid input { width:100%; min-width:100px; padding:7px; border:1px solid #cbd5e1; border-radius:6px; font:inherit; }
-    .template-grid .fixed-cell { background:#f1f5f9; color:#334155; }
-    .template-list { display:grid; gap:10px; }
-    .template-item { text-align:left; border:1px solid #dbeafe; background:#f8fbff; border-radius:10px; padding:12px; font:inherit; }
-    .template-item:hover { background:#eff6ff; }
-    .instance-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-top:16px; }
-    .instance-card { border:1px solid #bfdbfe; background:#fff; border-radius:10px; padding:14px; font:inherit; text-align:left; }
-    .sheet-meta { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:18px 0; }
-    .sheet-title { font-size:25px; margin-bottom:4px; }
-    @media (max-width: 900px) { .custom-layout { grid-template-columns:1fr; } .custom-form-grid,.sheet-meta { grid-template-columns:1fr; } }
+    .custom-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+      gap: 24px;
+    }
+
+    .custom-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, .04);
+    }
+
+    .custom-card h3 {
+      margin-bottom: 16px;
+      font-size: 19px;
+    }
+
+    .custom-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .custom-form-grid label,
+    .lhs-editor label {
+      display: grid;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .custom-form-grid input,
+    .lhs-editor input,
+    .custom-sheet-input {
+      width: 100%;
+      padding: 9px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font: inherit;
+    }
+
+    .lhs-editor {
+      margin: 16px 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .lhs-row {
+      display: grid;
+      grid-template-columns: 1fr 36px;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      border: 0;
+      border-radius: 8px;
+      background: #fee2e2;
+      color: #b91c1c;
+      font-size: 17px;
+    }
+
+    .template-grid {
+      overflow: auto;
+      margin-top: 18px;
+    }
+
+    .template-grid table {
+      min-width: 620px;
+    }
+
+    .template-grid input {
+      width: 100%;
+      min-width: 100px;
+      padding: 7px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font: inherit;
+    }
+
+    .template-grid .fixed-cell {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    .template-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .template-item {
+      text-align: left;
+      border: 1px solid #dbeafe;
+      background: #f8fbff;
+      border-radius: 10px;
+      padding: 12px;
+      font: inherit;
+    }
+
+    .template-item:hover {
+      background: #eff6ff;
+    }
+
+    .instance-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .instance-card {
+      border: 1px solid #bfdbfe;
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px;
+      font: inherit;
+      text-align: left;
+    }
+
+    .sheet-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .sheet-title {
+      font-size: 25px;
+      margin-bottom: 4px;
+    }
+
+
   </style>
 </head>
+
 <body>
 
-<!-- ===== HEADER (common) ===== -->
-<header class="app-header">
-  <div class="header-left">
-    <div class="header-logo">
-      <img src="plastmoldtek_logo-removebg-preview.png" alt="Company Logo" class="logo-img" 
-                style="height: 100px; width: auto; margin-left: -10px; margin-top: -35px;" />
-    </div>
-    <div class="header-company">Plastmold Tek</div>
-  </div>
-  <div class="header-right">
-    <button class="apps-btn" id="appsToggle" aria-label="App launcher">
-      <i class="fas fa-th"></i>
-    </button>
-    <!-- 9‑dot dropdown -->
-    <div class="apps-dropdown" id="appsDropdown">
-      <a href="index.html" class="app-item"><i class="fas fa-home"></i> Home</a>
-      <a href="#" class="app-item"><i class="fas fa-calendar-alt"></i> Calendar</a>
-      <a href="#" class="app-item"><i class="fas fa-chart-line"></i> Reports</a>
-    </div>
-  </div>
-</header>
-
-<!-- ===== PAGE 1: LANDING ===== -->
-<section id="landing" class="page active"> 
-  <div class="landing-image">
-    <i class="fas fa-tasks"></i>
-  </div>
-  <h1 class="landing-title">Welcome <span>Team</span></h1>
-  <p class="landing-sub">Organize your tools, track progress, and hit every deadline.</p>
-  <button class="btn-primary" id="goToDecider">Dashboard →</button>
-</section>
-
-<!-- ===== PAGE 2: DECIDER ===== -->
-<section id="decider" class="page">
-  <div class="decider-card">
-    <h2 class="decider-title">Choose your list type</h2>
-    <p class="decider-desc">Select the workflow that fits your daily planning.</p>
-    <div class="decider-actions">
-      <button class="decider-btn regular" id="goRegular">
-        <i class="fas fa-list-ul"></i> Regular List
-      </button>
-      <button class="decider-btn custom" id="goCustom">
-        <i class="fas fa-pen-fancy"></i> Custom List
-      </button>
-    </div>
-  </div>
-</section>
-
-<!-- ===== CUSTOM LISTS ===== -->
-<section id="custom" class="page">
-  <div id="customHome" class="custom-layout">
-    <div class="custom-card">
-      <h3><i class="fas fa-plus-circle"></i> New Template</h3>
-      <div class="custom-form-grid">
-        <label>Main title<input id="customTitle" type="text" placeholder="e.g. Tool Inspection" /></label>
-        <label>Number of rows<input id="customRows" type="number" min="1" max="100" value="5" /></label>
-        <label>Number of columns<input id="customCols" type="number" min="1" max="20" value="4" /></label>
-        <label>Numbered check sheets<input id="customCopies" type="number" min="1" max="100" value="1" /></label>
+    <!-- ===== HEADER (common) ===== -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="header-logo">
+        <img src="plastmoldtek_logo-removebg-preview.png" alt="Company Logo" class="logo-img"
+          style="height: 100px; width: auto; margin-left: -10px; margin-top: -35px;" />
       </div>
-      <div class="lhs-editor"><strong>Above-table labels (LHS)</strong><div id="lhsFields"></div><button class="btn-secondary action-btn" type="button" id="addLhsBtn">Add LHS label</button></div>
-      <button class="btn-primary" id="buildTemplateBtn">Build template</button>
-      <div id="templateBuilder" class="template-grid" hidden></div>
-      <button class="action-btn btn-success" id="saveTemplateBtn" hidden style="margin-top:16px;">Save template and create sheets</button>
+      <div class="header-company">Plastmold Tek</div>
     </div>
-    <div class="custom-card"><h3><i class="fas fa-copy"></i> Created Templates</h3><div id="templateList" class="template-list"></div></div>
-  </div>
-  <div id="customInstances" class="custom-card" hidden></div>
-  <div id="customSheet" class="custom-card" hidden></div>
-</section>
-
-<!-- ===== DASHBOARD ===== -->
-<section id="dashboard" class="page">
-  <div class="dashboard-header">
-    <div>
-      <h2><i class="fas fa-clipboard-list"></i> Regular List</h2>
-      <p class="dashboard-date"> <span id="dashboardDate"></span></p>
+    <div class="header-right">
+      </button>
+      <button class="apps-btn" id="appsToggle" aria-label="App launcher">
+        <i class="fas fa-th"></i>
+      </button>
+      <!-- 9‑dot dropdown -->
+      <div class="apps-dropdown" id="appsDropdown">
+        <a href="index.html" class="app-item"><i class="fas fa-home"></i> Home</a>
+        <a href="#" class="app-item"><i class="fas fa-calendar-alt"></i> Calendar</a>
+        <a href="#" class="app-item"><i class="fas fa-chart-line"></i> Reports</a>
+      </div>
     </div>
-    <div class="header-actions"style="margin-top:30px">
-      <button class="add-row-btn" id="addRowBtn" disabled title="Enable Edit mode to add a row"><i class="fas fa-plus-circle"></i> Add Row</button><br>
-      <button class="action-btn btn-secondary" id="editToggleBtn"><i class="fas fa-pen"></i> Edit</button>
-      <button class="action-btn btn-success" id="saveAllBtn" ><i class="fas fa-save"></i> Save All</button>
+  </header>
+
+  <!-- ===== PAGE 1: LANDING ===== -->
+  <section id="landing" class="page active">
+    <div class="landing-image">
+      <i class="fas fa-tasks"></i>
     </div>
-  </div>
+    <h1 class="landing-title">Welcome <span>Team</span></h1>
+    <p class="landing-sub">Organize your tools, track progress, and hit every deadline.</p>
+    <button class="btn-primary" id="goToDecider">Dashboard →</button>
+  </section>
 
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Tool #</th>
-          <th>Scope</th>
-          <th>Design</th>
-          <th>Tool Maker</th>
-          <th>Written Date</th>
-          <th>Target</th>
-          <th>Planned Activities</th>
-          <th>Done?</th>
-          <th>Completed On</th>
-          <th>Remarks</th>
-          <th style="width:40px;"></th>
-        </tr>
-      </thead>
-      <tbody id="taskTableBody">
-        <!-- rows inserted by JS -->
-      </tbody>
-    </table>
-  </div>
-  <div style="margin-top:16px; display:flex; gap:14px; flex-wrap:wrap; font-size:13px; color:#475569;">
-    <span><span style="display:inline-block; width:14px; height:14px; background:#82d182; border-radius:4px; vertical-align:middle; margin-right:6px;"></span> Completed (Green)</span>
-    <span><span style="display:inline-block; width:14px; height:14px; background:#c47777; border-radius:4px; vertical-align:middle; margin-right:6px;"></span> Previous incomplete task (Red)</span>
-    <span><span style="display:inline-block; width:14px; height:14px; background:#dfce90; border-radius:4px; vertical-align:middle; margin-right:6px;"></span> Pending / Today (Yellow)</span>
-  </div>
-</section>
+  <!-- ===== PAGE 2: DECIDER ===== -->
+  <section id="decider" class="page">
+    <div class="decider-card">
+      <h2 class="decider-title">Choose your list type</h2>
+      <p class="decider-desc">Select the workflow that fits your daily planning.</p>
+      <div class="decider-actions">
+        <button class="decider-btn regular" id="goRegular">
+          <i class="fas fa-list-ul"></i> Regular List
+        </button>
+        <button class="decider-btn custom" id="goCustom">
+          <i class="fas fa-pen-fancy"></i> Custom List
+        </button>
+      </div>
+    </div>
+  </section>
 
-<script>
-  (function() {
-    'use strict';
+  <!-- ===== CUSTOM LISTS ===== -->
+  <section id="custom" class="page">
+    <div id="customHome" class="custom-layout">
+      <div class="custom-card">
+        <h3><i class="fas fa-plus-circle"></i> New Template</h3>
+        <div class="custom-form-grid">
+          <label>Main title<input id="customTitle" type="text" placeholder="e.g. Tool Inspection" /></label>
+          <label>Number of rows<input id="customRows" type="number" min="1" max="100" value="5" /></label>
+          <label>Number of columns<input id="customCols" type="number" min="1" max="20" value="4" /></label>
+          <label>Numbered check sheets<input id="customCopies" type="number" min="1" max="100" value="1" /></label>
+        </div>
+        <div class="lhs-editor"><strong>Above-table labels (LHS)</strong>
+          <div id="lhsFields"></div><button class="btn-secondary action-btn" type="button" id="addLhsBtn">Add LHS
+            label</button>
+        </div>
+        <button class="btn-primary" id="buildTemplateBtn">Build template</button>
+        <div id="templateBuilder" class="template-grid" hidden></div>
+        <button class="action-btn btn-success" id="saveTemplateBtn" hidden style="margin-top:16px;">Save template and
+          create sheets</button>
+      </div>
+      <div class="custom-card">
+        <h3><i class="fas fa-copy"></i> Created Templates</h3>
+        <div id="templateList" class="template-list"></div>
+      </div>
+    </div>
+    <div id="customInstances" class="custom-card" hidden></div>
+    <div id="customSheet" class="custom-card" hidden></div>
+  </section>
 
-    // ----- DOM refs -----
-    const landingPage = document.getElementById('landing');
-    const deciderPage = document.getElementById('decider');
-    const dashboardPage = document.getElementById('dashboard');
-    const taskBody = document.getElementById('taskTableBody');
-    const addBtn = document.getElementById('addRowBtn');
-    const editToggleBtn = document.getElementById('editToggleBtn');
-    const saveAllBtn = document.getElementById('saveAllBtn');
-    const dashboardDate = document.getElementById('dashboardDate');
+  <!-- ===== DASHBOARD ===== -->
+  <section id="dashboard" class="page">
+    <div class="dashboard-header">
+      <div>
+        <h2><i class="fas fa-clipboard-list"></i> Regular List</h2>
+        <p class="dashboard-date"> <span id="dashboardDate"></span></p>
+      </div>
+      <div class="header-actions" style="margin-top:30px">
+        <button class="add-row-btn" id="addRowBtn" disabled title="Enable Edit mode to add a row"><i
+            class="fas fa-plus-circle"></i> Add Row</button><br>
+        <button class="action-btn btn-secondary" id="editToggleBtn"><i class="fas fa-pen"></i> Edit</button>
+        <button class="action-btn btn-success" id="saveAllBtn"><i class="fas fa-save"></i> Save All</button>
+      </div>
+    </div>
 
-    // ----- Global state -----
-    let editMode = false;
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Tool #</th>
+            <th>Scope</th>
+            <th>Design</th>
+            <th>Tool Maker</th>
+            <th>Written Date</th>
+            <th>Target</th>
+            <th>Planned Activities</th>
+            <th>Done?</th>
+            <th>Completed On</th>
+            <th>Remarks</th>
+            <th style="width:40px;"></th>
+          </tr>
+        </thead>
+        <tbody id="taskTableBody">
+          <!-- rows inserted by JS -->
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:16px; display:flex; gap:14px; flex-wrap:wrap; font-size:13px; color:#475569;">
+      <span><span
+          style="display:inline-block; width:14px; height:14px; background:#82d182; border-radius:4px; vertical-align:middle; margin-right:6px;"></span>
+        Completed (Green)</span>
+      <span><span
+          style="display:inline-block; width:14px; height:14px; background:#c47777; border-radius:4px; vertical-align:middle; margin-right:6px;"></span>
+        Previous incomplete task (Red)</span>
+      <span><span
+          style="display:inline-block; width:14px; height:14px; background:#dfce90; border-radius:4px; vertical-align:middle; margin-right:6px;"></span>
+        Pending / Today (Yellow)</span>
+    </div>
+  </section>
 
-    // ----- Navigation -----
-    function showPage(pageId) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(pageId).classList.add('active');
-    }
+  <script>
+    (function () {
+      'use strict';
 
-    document.getElementById('goToDecider').addEventListener('click', () => showPage('decider'));
-    document.getElementById('goRegular').addEventListener('click', () => {
-      showPage('dashboard');
-      renderTable();
-    });
+      // ----- DOM refs -----
+      const landingPage = document.getElementById('landing');
+      const deciderPage = document.getElementById('decider');
+      const dashboardPage = document.getElementById('dashboard');
+      const taskBody = document.getElementById('taskTableBody');
+      const addBtn = document.getElementById('addRowBtn');
+      const editToggleBtn = document.getElementById('editToggleBtn');
+      const saveAllBtn = document.getElementById('saveAllBtn');
+      const dashboardDate = document.getElementById('dashboardDate');
 
-    // ----- 9‑dot dropdown -----
-    const appsToggle = document.getElementById('appsToggle');
-    const appsDropdown = document.getElementById('appsDropdown');
-    appsToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      appsDropdown.classList.toggle('open');
-    });
-    document.addEventListener('click', () => appsDropdown.classList.remove('open'));
-    appsDropdown.addEventListener('click', (e) => e.stopPropagation());
+      // ----- Global state -----
+      let editMode = false;
 
-    // ----- Data layer (localStorage) -----
-    const STORAGE_KEY = 'taskflow_data';
-    let tasks = [];
-
-    function loadTasks() {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        try { tasks = JSON.parse(stored); } catch(e) { tasks = []; }
-      } else {
-        tasks = [
-          { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Name', maker: 'Name', writtenDate: getTodayStr(), targetDate: '', planned: 'CAD model review', done: false, completedDate: '', remark: '' },
-          { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Name', maker: 'Name', writtenDate: getYesterdayStr(), targetDate: '', planned: 'Update fixtures', done: false, completedDate: '', remark: '' },
-          { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Name', maker: 'Name', writtenDate: getTodayStr(), targetDate: '', planned: 'Final inspection', done: true, completedDate: getTodayStr(), remark: 'Approved' },
-        ];
+      // ----- Navigation -----
+      function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
       }
-      tasks = tasks.map(t => ({
-        id: String(t.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`),
-        tool: t.tool || '',
-        scope: t.scope || 'Newtool',
-        design: t.design || '',
-        maker: t.maker || '',
-        writtenDate: t.writtenDate || getTodayStr(),
-        targetDate: normalizeDateValue(t.targetDate || t.date),
-        // Retain the legacy name until the deployed Apps Script is updated.
-        date: normalizeDateValue(t.targetDate || t.date),
-        planned: t.planned || '',
-        done: t.done === true || t.done === 'true',
-        completedDate: t.completedDate || '',
-        remark: t.remark || ''
-      }));
-      saveTasks();
-    }
 
-    // ----- Load data from Google Sheets (NOW OUTSIDE loadTasks) -----
-    async function loadDataFromSheet() {
-      const webAppUrl = 'https://script.google.com/macros/s/AKfycbyUKSXgBRmei1v4v97g-agSzR-yOU0OrwzkhAnjreyu4UaPSrHPNwLrcjZPHnqgAOwp/exec';
-
-      try {
-        const response = await fetch(webAppUrl);
-        const result = await response.json();
-        
-        if (result.success && Array.isArray(result.tasks)) {
-          // The previous backend did not return Written Date or Completed On.
-          // Preserve those locally stored values by task ID until the new backend is deployed.
-          const localTasksById = new Map(tasks.map(task => [String(task.id), task]));
-          tasks = result.tasks.map(t => {
-            const localTask = localTasksById.get(String(t.id)) || {};
-            return {
-              ...localTask,
-              id: String(t.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`),
-              tool: t.tool || '', scope: t.scope || 'Newtool', design: t.design || '',
-              maker: t.maker || '',
-              writtenDate: normalizeDateValue(t.writtenDate) || localTask.writtenDate || getTodayStr(),
-              targetDate: normalizeDateValue(t.targetDate || t.date), planned: t.planned || '',
-              date: normalizeDateValue(t.targetDate || t.date),
-              done: t.done === true || t.done === 'true',
-              completedDate: normalizeDateValue(t.completedDate) || localTask.completedDate || '',
-              remark: t.remark || ''
-            };
-          });
-          saveTasks(); // save to localStorage as backup
-          renderTable();
-          console.log('✅ Data loaded from Google Sheets.');
-        } else {
-          console.log('ℹ️ No usable data in Google Sheets, using local backup.');
-        }
-      } catch (error) {
-        console.error('❌ Failed to load from Google Sheets:', error);
-        console.log('Using local storage data.');
-      }
-    }
-
-    function saveTasks() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-    }
-
-    function getTodayStr() {
-      return formatLocalDate(new Date());
-    }
-
-    function formatLocalDate(d) {
-      const month = String(d.getMonth() + 1).padStart(2, '0');
-      const day = String(d.getDate()).padStart(2, '0');
-      return `${d.getFullYear()}-${month}-${day}`;
-    }
-
-    function normalizeDateValue(value) {
-      if (!value) return '';
-      const text = String(value);
-      if (/^\d{4}-\d{2}-\d{2}$/.test(text)) return text;
-      const parsed = new Date(text);
-      return Number.isNaN(parsed.getTime()) ? '' : formatLocalDate(parsed);
-    }
-
-    function getYesterdayStr() {
-      const d = new Date();
-      d.setDate(d.getDate() - 1);
-      return formatLocalDate(d);
-    }
-
-    function updateDashboardDate() {
-      dashboardDate.textContent = new Intl.DateTimeFormat('en-GB', {
-        day: '2-digit', month: 'long', year: 'numeric'
-      }).format(new Date());
-    }
-    // ----- Helper: collect data from DOM into tasks array (without saving) -----
-    function collectTableDataIntoMemory() {
-      const rows = taskBody.querySelectorAll('tr[data-id]');
-      rows.forEach(row => {
-        const id = row.dataset.id;
-        const task = tasks.find(t => String(t.id) === id);
-        if (task) {
-          task.tool = row.querySelector('[data-field="tool"]').value;
-          task.scope = row.querySelector('[data-field="scope"]').value;
-          task.design = row.querySelector('[data-field="design"]').value;
-          task.maker = row.querySelector('[data-field="maker"]').value;
-          task.targetDate = row.querySelector('[data-field="targetDate"]').value;
-          task.date = task.targetDate; // Required by the currently deployed legacy backend.
-          task.planned = row.querySelector('[data-field="planned"]').value;
-          task.done = row.querySelector('[data-field="done"]').checked;
-          task.completedDate = task.done ? (task.completedDate || getTodayStr()) : '';
-          task.remark = row.querySelector('[data-field="remark"]').value;
-        }
+      document.getElementById('goToDecider').addEventListener('click', () => showPage('decider'));
+      document.getElementById('goRegular').addEventListener('click', () => {
+        showPage('dashboard');
+        renderTable();
       });
-    }
 
-    // ----- Save All (called from button) -----
-    async function handleSaveAll() {
-      // 1. Read all data from the table into the tasks array
-      collectTableDataIntoMemory();
+      // ----- 9‑dot dropdown -----
+      const appsToggle = document.getElementById('appsToggle');
+      const appsDropdown = document.getElementById('appsDropdown');
+      appsToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        appsDropdown.classList.toggle('open');
+      });
+      document.addEventListener('click', () => appsDropdown.classList.remove('open'));
+      appsDropdown.addEventListener('click', (e) => e.stopPropagation());
 
-      // 2. Save to localStorage
-      saveTasks();
+      // ----- Data layer (localStorage) -----
+      const STORAGE_KEY = 'taskflow_data';
+      let tasks = [];
 
-      // 3. Send data to Google Sheets (use text/plain to avoid preflight)
-      const webAppUrl = 'https://script.google.com/macros/s/AKfycbyUKSXgBRmei1v4v97g-agSzR-yOU0OrwzkhAnjreyu4UaPSrHPNwLrcjZPHnqgAOwp/exec';
+      function loadTasks() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          try { tasks = JSON.parse(stored); } catch (e) { tasks = []; }
+        } else {
+          tasks = [
+            { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Name', maker: 'Name', writtenDate: getTodayStr(), targetDate: '', planned: 'CAD model review', done: false, completedDate: '', remark: '' },
+            { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Name', maker: 'Name', writtenDate: getYesterdayStr(), targetDate: '', planned: 'Update fixtures', done: false, completedDate: '', remark: '' },
+            { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Name', maker: 'Name', writtenDate: getTodayStr(), targetDate: '', planned: 'Final inspection', done: true, completedDate: getTodayStr(), remark: 'Approved' },
+          ];
+        }
+        tasks = tasks.map(t => ({
+          id: String(t.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`),
+          tool: t.tool || '',
+          scope: t.scope || 'Newtool',
+          design: t.design || '',
+          maker: t.maker || '',
+          writtenDate: t.writtenDate || getTodayStr(),
+          targetDate: normalizeDateValue(t.targetDate || t.date),
+          // Retain the legacy name until the deployed Apps Script is updated.
+          date: normalizeDateValue(t.targetDate || t.date),
+          planned: t.planned || '',
+          done: t.done === true || t.done === 'true',
+          completedDate: t.completedDate || '',
+          remark: t.remark || ''
+        }));
+        saveTasks();
+      }
 
-      let sheetSaved = false;
-      try {
-        const response = await fetch(webAppUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain',   // 👈 Prevents preflight
-          },
-          // `date` keeps the save compatible with the previous Apps Script version.
-          body: JSON.stringify({
-            tasks: tasks.map(task => ({ ...task, date: task.targetDate }))
-          })
+      // ----- Load data from Google Sheets (NOW OUTSIDE loadTasks) -----
+      async function loadDataFromSheet() {
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbyUKSXgBRmei1v4v97g-agSzR-yOU0OrwzkhAnjreyu4UaPSrHPNwLrcjZPHnqgAOwp/exec';
+
+        try {
+          const response = await fetch(webAppUrl);
+          const result = await response.json();
+
+          if (result.success && Array.isArray(result.tasks)) {
+            // The previous backend did not return Written Date or Completed On.
+            // Preserve those locally stored values by task ID until the new backend is deployed.
+            const localTasksById = new Map(tasks.map(task => [String(task.id), task]));
+            tasks = result.tasks.map(t => {
+              const localTask = localTasksById.get(String(t.id)) || {};
+              return {
+                ...localTask,
+                id: String(t.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`),
+                tool: t.tool || '', scope: t.scope || 'Newtool', design: t.design || '',
+                maker: t.maker || '',
+                writtenDate: normalizeDateValue(t.writtenDate) || localTask.writtenDate || getTodayStr(),
+                targetDate: normalizeDateValue(t.targetDate || t.date), planned: t.planned || '',
+                date: normalizeDateValue(t.targetDate || t.date),
+                done: t.done === true || t.done === 'true',
+                completedDate: normalizeDateValue(t.completedDate) || localTask.completedDate || '',
+                remark: t.remark || ''
+              };
+            });
+            saveTasks(); // save to localStorage as backup
+            renderTable();
+            console.log('✅ Data loaded from Google Sheets.');
+          } else {
+            console.log('ℹ️ No usable data in Google Sheets, using local backup.');
+          }
+        } catch (error) {
+          console.error('❌ Failed to load from Google Sheets:', error);
+          console.log('Using local storage data.');
+        }
+      }
+
+      function saveTasks() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+      }
+
+      function getTodayStr() {
+        return formatLocalDate(new Date());
+      }
+
+      function formatLocalDate(d) {
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${d.getFullYear()}-${month}-${day}`;
+      }
+
+      function normalizeDateValue(value) {
+        if (!value) return '';
+        const text = String(value);
+        if (/^\d{4}-\d{2}-\d{2}$/.test(text)) return text;
+        const parsed = new Date(text);
+        return Number.isNaN(parsed.getTime()) ? '' : formatLocalDate(parsed);
+      }
+
+      function getYesterdayStr() {
+        const d = new Date();
+        d.setDate(d.getDate() - 1);
+        return formatLocalDate(d);
+      }
+
+      function updateDashboardDate() {
+        dashboardDate.textContent = new Intl.DateTimeFormat('en-GB', {
+          day: '2-digit', month: 'long', year: 'numeric'
+        }).format(new Date());
+      }
+      // ----- Helper: collect data from DOM into tasks array (without saving) -----
+      function collectTableDataIntoMemory() {
+        const rows = taskBody.querySelectorAll('tr[data-id]');
+        rows.forEach(row => {
+          const id = row.dataset.id;
+          const task = tasks.find(t => String(t.id) === id);
+          if (task) {
+            task.tool = row.querySelector('[data-field="tool"]').value;
+            task.scope = row.querySelector('[data-field="scope"]').value;
+            task.design = row.querySelector('[data-field="design"]').value;
+            task.maker = row.querySelector('[data-field="maker"]').value;
+            task.targetDate = row.querySelector('[data-field="targetDate"]').value;
+            task.date = task.targetDate; // Required by the currently deployed legacy backend.
+            task.planned = row.querySelector('[data-field="planned"]').value;
+            task.done = row.querySelector('[data-field="done"]').checked;
+            task.completedDate = task.done ? (task.completedDate || getTodayStr()) : '';
+            task.remark = row.querySelector('[data-field="remark"]').value;
+          }
+        });
+      }
+
+      // ----- Save All (called from button) -----
+      async function handleSaveAll() {
+        // 1. Read all data from the table into the tasks array
+        collectTableDataIntoMemory();
+
+        // 2. Save to localStorage
+        saveTasks();
+
+        // 3. Send data to Google Sheets (use text/plain to avoid preflight)
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbyUKSXgBRmei1v4v97g-agSzR-yOU0OrwzkhAnjreyu4UaPSrHPNwLrcjZPHnqgAOwp/exec';
+
+        let sheetSaved = false;
+        try {
+          const response = await fetch(webAppUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'text/plain',   // 👈 Prevents preflight
+            },
+            // `date` keeps the save compatible with the previous Apps Script version.
+            body: JSON.stringify({
+              tasks: tasks.map(task => ({ ...task, date: task.targetDate }))
+            })
+          });
+
+          const result = await response.json();
+          if (result.success) {
+            sheetSaved = true;
+            console.log('✅ Google Sheets update successful:', result.message);
+          } else {
+            console.error('❌ Google Sheets error:', result.error);
+            alert('Save to Google Sheets failed: ' + result.error);
+          }
+        } catch (error) {
+          console.error('❌ Network error while saving to Google Sheets:', error);
+          alert('Network error: ' + error.message);
+        }
+
+        // 4. Turn off edit mode
+        setEditMode(false);
+
+        // 5. Re-render to update colors and serials
+        renderTable();
+
+        // 6. Feedback
+        alert(sheetSaved
+          ? '✅ All changes saved to Google Sheets and this browser.'
+          : '⚠️ Changes were saved only in this browser. Google Sheets was not updated.');
+      }
+      // ----- Toggle Edit Mode -----
+      function setEditMode(mode) {
+        editMode = mode;
+        const inputs = document.querySelectorAll('#taskTableBody .table-input, #taskTableBody .status-checkbox');
+        inputs.forEach(el => {
+          if (el.tagName === 'SELECT' || el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.disabled = !editMode;
+          }
         });
 
-        const result = await response.json();
-        if (result.success) {
-          sheetSaved = true;
-          console.log('✅ Google Sheets update successful:', result.message);
+        if (editMode) {
+          editToggleBtn.innerHTML = '<i class="fas fa-times"></i> Cancel';
+          editToggleBtn.style.background = '#fee2e2';
+          editToggleBtn.style.color = '#b91c1c';
+          saveAllBtn.style.display = 'inline-flex';
+          addBtn.disabled = false;
+          addBtn.title = 'Add a new row';
         } else {
-          console.error('❌ Google Sheets error:', result.error);
-          alert('Save to Google Sheets failed: ' + result.error);
+          editToggleBtn.innerHTML = '<i class="fas fa-pen"></i> Edit';
+          editToggleBtn.style.background = '';
+          editToggleBtn.style.color = '';
+          saveAllBtn.style.display = 'none';
+          addBtn.disabled = true;
+          addBtn.title = 'Enable Edit mode to add a row';
         }
-      } catch (error) {
-        console.error('❌ Network error while saving to Google Sheets:', error);
-        alert('Network error: ' + error.message);
       }
 
-      // 4. Turn off edit mode
-      setEditMode(false);
-
-      // 5. Re-render to update colors and serials
-      renderTable();
-
-      // 6. Feedback
-      alert(sheetSaved
-        ? '✅ All changes saved to Google Sheets and this browser.'
-        : '⚠️ Changes were saved only in this browser. Google Sheets was not updated.');
-    }
-    // ----- Toggle Edit Mode -----
-    function setEditMode(mode) {
-      editMode = mode;
-      const inputs = document.querySelectorAll('#taskTableBody .table-input, #taskTableBody .status-checkbox');
-      inputs.forEach(el => {
-        if (el.tagName === 'SELECT' || el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-          el.disabled = !editMode;
+      // Toggle button click
+      editToggleBtn.addEventListener('click', function () {
+        if (editMode) {
+          // Cancel: revert to view mode without saving
+          // Re-render table to discard unsaved changes
+          renderTable();
+          setEditMode(false);
+        } else {
+          setEditMode(true);
         }
       });
 
-      if (editMode) {
-        editToggleBtn.innerHTML = '<i class="fas fa-times"></i> Cancel';
-        editToggleBtn.style.background = '#fee2e2';
-        editToggleBtn.style.color = '#b91c1c';
-        saveAllBtn.style.display = 'inline-flex';
-        addBtn.disabled = false;
-        addBtn.title = 'Add a new row';
-      } else {
-        editToggleBtn.innerHTML = '<i class="fas fa-pen"></i> Edit';
-        editToggleBtn.style.background = '';
-        editToggleBtn.style.color = '';
-        saveAllBtn.style.display = 'none';
-        addBtn.disabled = true;
-        addBtn.title = 'Enable Edit mode to add a row';
-      }
-    }
+      // Save All button click
+      saveAllBtn.addEventListener('click', handleSaveAll);
 
-    // Toggle button click
-    editToggleBtn.addEventListener('click', function() {
-      if (editMode) {
-        // Cancel: revert to view mode without saving
-        // Re-render table to discard unsaved changes
-        renderTable();
-        setEditMode(false);
-      } else {
-        setEditMode(true);
-      }
-    });
+      // ----- Render table -----
+      function renderTable() {
+        updateDashboardDate();
+        const today = getTodayStr();
+        const visibleTasks = tasks.filter(t =>
+          t.writtenDate === today || t.completedDate === today || !t.done
+        );
 
-    // Save All button click
-    saveAllBtn.addEventListener('click', handleSaveAll);
-
-    // ----- Render table -----
-    function renderTable() {
-      updateDashboardDate();
-      const today = getTodayStr();
-      const visibleTasks = tasks.filter(t =>
-        t.writtenDate === today || t.completedDate === today || !t.done
-      );
-
-      if (visibleTasks.length === 0) {
-        taskBody.innerHTML = `
+        if (visibleTasks.length === 0) {
+          taskBody.innerHTML = `
           <tr><td colspan="12">
             <div class="empty-state">
               <i class="fas fa-inbox"></i>
@@ -920,32 +1152,32 @@
             </div>
           </td></tr>
         `;
-        return;
-      }
-
-      let html = '';
-      visibleTasks.forEach((t, index) => {
-        const serial = index + 1;
-        const doneChecked = t.done ? 'checked' : '';
-
-        let statusClass = 'status-yellow';
-        if (t.done) {
-          statusClass = 'status-green';
-        } else {
-          if (t.writtenDate < today) statusClass = 'status-red';
-          else statusClass = 'status-yellow';
+          return;
         }
 
-        // Determine disabled attribute based on editMode
-        const disabledAttr = editMode ? '' : 'disabled';
+        let html = '';
+        visibleTasks.forEach((t, index) => {
+          const serial = index + 1;
+          const doneChecked = t.done ? 'checked' : '';
 
-        html += `
+          let statusClass = 'status-yellow';
+          if (t.done) {
+            statusClass = 'status-green';
+          } else {
+            if (t.writtenDate < today) statusClass = 'status-red';
+            else statusClass = 'status-yellow';
+          }
+
+          // Determine disabled attribute based on editMode
+          const disabledAttr = editMode ? '' : 'disabled';
+
+          html += `
           <tr class="${statusClass}" data-id="${t.id}">
             <td><span class="serial-badge">${serial}</span></td>
             <td><input class="table-input" type="text" value="${escapeHtml(t.tool)}" data-field="tool" placeholder="e.g. IM180" ${disabledAttr} /></td>
             <td>
               <select class="table-input table-select" data-field="scope" ${disabledAttr}>
-                ${['Newtool','Rework','ECN'].map(opt => `<option value="${opt}" ${t.scope===opt?'selected':''}>${opt}</option>`).join('')}
+                ${['Newtool', 'Rework', 'ECN'].map(opt => `<option value="${opt}" ${t.scope === opt ? 'selected' : ''}>${opt}</option>`).join('')}
               </select>
             </td>
             <td><input class="table-input" type="text" value="${escapeHtml(t.design)}" data-field="design" placeholder="Name" ${disabledAttr} /></td>
@@ -961,185 +1193,187 @@
             <td><button class="delete-row" data-id="${t.id}" title="Delete row" ${disabledAttr}><i class="fas fa-trash-alt"></i></button></td>
           </tr>
         `;
-      });
-
-      taskBody.innerHTML = html;
-
-      // Attach delete listeners
-      taskBody.querySelectorAll('.delete-row').forEach(btn => {
-        btn.addEventListener('click', function() {
-          if (!confirm('Delete this row?')) return;
-          const id = this.dataset.id;
-          tasks = tasks.filter(t => String(t.id) !== id);
-          saveTasks();
-          renderTable();
-          // If we're in edit mode, keep it
-          if (editMode) setEditMode(true);
         });
-      });
-    }
 
-    function escapeHtml(str) {
-      if (!str) return '';
-      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-                .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
-    }
+        taskBody.innerHTML = html;
 
-    // ----- Add new row -----
-    function addNewRow() {
-      const newTask = {
-        id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
-        tool: '',
-        scope: 'Newtool',
-        design: '',
-        maker: '',
-        writtenDate: getTodayStr(),
-        targetDate: '',
-        planned: '',
-        done: false,
-        completedDate: '',
-        remark: ''
-      };
-      tasks.push(newTask);
-      saveTasks();
-      renderTable();
-
-      // If edit mode is off, turn it on automatically so user can fill the new row
-      if (!editMode) {
-        setEditMode(true);
+        // Attach delete listeners
+        taskBody.querySelectorAll('.delete-row').forEach(btn => {
+          btn.addEventListener('click', function () {
+            if (!confirm('Delete this row?')) return;
+            const id = this.dataset.id;
+            tasks = tasks.filter(t => String(t.id) !== id);
+            saveTasks();
+            renderTable();
+            // If we're in edit mode, keep it
+            if (editMode) setEditMode(true);
+          });
+        });
       }
 
-      // Scroll to new row
-      setTimeout(() => {
-        const lastRow = taskBody.lastElementChild;
-        if (lastRow) lastRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 100);
-    }
+      function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+      }
 
-    addBtn.addEventListener('click', addNewRow);
+      // ----- Add new row -----
+      function addNewRow() {
+        const newTask = {
+          id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+          tool: '',
+          scope: 'Newtool',
+          design: '',
+          maker: '',
+          writtenDate: getTodayStr(),
+          targetDate: '',
+          planned: '',
+          done: false,
+          completedDate: '',
+          remark: ''
+        };
+        tasks.push(newTask);
+        saveTasks();
+        renderTable();
 
-    // ----- Custom lists -----
-    const customPage = document.getElementById('custom');
-    const customHome = document.getElementById('customHome');
-    const customInstances = document.getElementById('customInstances');
-    const customSheet = document.getElementById('customSheet');
-    const lhsFields = document.getElementById('lhsFields');
-    const templateBuilder = document.getElementById('templateBuilder');
-    const saveTemplateBtn = document.getElementById('saveTemplateBtn');
-    const CUSTOM_KEY = 'taskflow_custom_lists';
-    let customData = { templates: [], instances: [] };
-
-    function addLhsField(value = '') {
-      const row = document.createElement('div');
-      row.className = 'lhs-row';
-      row.innerHTML = `<input type="text" class="lhs-label" placeholder="e.g. Part No" value="${escapeHtml(value)}"><button class="icon-btn" type="button" title="Remove">×</button>`;
-      row.querySelector('button').addEventListener('click', () => row.remove());
-      lhsFields.appendChild(row);
-    }
-    addLhsField('Part No'); addLhsField('Part Name');
-    document.getElementById('addLhsBtn').addEventListener('click', () => addLhsField());
-    document.getElementById('goCustom').addEventListener('click', async () => {
-      showPage('custom'); renderCustomHome(); await loadCustomRemote(); renderCustomHome();
-    });
-
-    function loadCustomData() {
-      try { customData = JSON.parse(localStorage.getItem(CUSTOM_KEY)) || customData; } catch (_) {}
-    }
-    function saveCustomData() { localStorage.setItem(CUSTOM_KEY, JSON.stringify(customData)); }
-    function customId() { return `${Date.now()}-${Math.random().toString(36).slice(2)}`; }
-    function showCustomView(view) {
-      customHome.hidden = view !== 'home'; customInstances.hidden = view !== 'instances'; customSheet.hidden = view !== 'sheet';
-    }
-    function renderCustomHome() {
-      showCustomView('home');
-      const list = document.getElementById('templateList');
-      if (!customData.templates.length) { list.innerHTML = '<p style="color:#64748b">No templates created yet.</p>'; return; }
-      list.innerHTML = customData.templates.map(t => `<button class="template-item" data-template-id="${t.id}"><strong>${escapeHtml(t.title)}</strong><br><small>${t.rows} rows · ${t.columns.length} columns · ${t.copies} sheets</small></button>`).join('');
-      list.querySelectorAll('button').forEach(button => button.addEventListener('click', () => renderInstances(button.dataset.templateId)));
-    }
-    document.getElementById('buildTemplateBtn').addEventListener('click', () => {
-      const rows = Number(document.getElementById('customRows').value);
-      const cols = Number(document.getElementById('customCols').value);
-      if (!Number.isInteger(rows) || rows < 1 || !Number.isInteger(cols) || cols < 1) return alert('Enter at least one row and one column.');
-      let html = '<table><thead><tr><th>Sl. No</th>';
-      for (let c = 0; c < cols; c++) html += `<th><input class="column-title" placeholder="Column ${c + 1}"></th>`;
-      html += '</tr></thead><tbody>';
-      for (let r = 0; r < rows; r++) { html += `<tr><td>${r + 1}</td>`; for (let c = 0; c < cols; c++) html += `<td><input class="template-cell" data-row="${r}" data-col="${c}" placeholder="Optional fixed value"></td>`; html += '</tr>'; }
-      templateBuilder.innerHTML = html + '</tbody></table>'; templateBuilder.hidden = false; saveTemplateBtn.hidden = false;
-    });
-    saveTemplateBtn.addEventListener('click', async () => {
-      const title = document.getElementById('customTitle').value.trim();
-      const rows = Number(document.getElementById('customRows').value), copies = Number(document.getElementById('customCopies').value);
-      const columns = [...templateBuilder.querySelectorAll('.column-title')].map((input, i) => input.value.trim() || `Column ${i + 1}`);
-      const lhs = [...lhsFields.querySelectorAll('.lhs-label')].map(input => input.value.trim()).filter(Boolean);
-      if (!title || !columns.length || !Number.isInteger(copies) || copies < 1) return alert('Enter a main title, columns, and number of check sheets.');
-      const fixedCells = Array.from({ length: rows }, () => Array(columns.length).fill(''));
-      templateBuilder.querySelectorAll('.template-cell').forEach(input => fixedCells[input.dataset.row][input.dataset.col] = input.value);
-      const template = { id: customId(), title, rows, columns, lhs, fixedCells, copies, createdAt: getTodayStr() };
-      customData.templates.push(template);
-      for (let i = 1; i <= copies; i++) customData.instances.push({ id: customId(), templateId: template.id, name: `${title}_${i}`, meta: {}, values: Array.from({ length: rows }, () => Array(columns.length).fill('')), updatedAt: '' });
-      saveCustomData(); await saveCustomRemote(); alert('Template and numbered check sheets created.');
-      document.getElementById('customTitle').value = ''; templateBuilder.hidden = true; saveTemplateBtn.hidden = true; renderCustomHome();
-    });
-    function renderInstances(templateId) {
-      const template = customData.templates.find(t => t.id === templateId); if (!template) return renderCustomHome();
-      showCustomView('instances'); const instances = customData.instances.filter(i => i.templateId === templateId);
-      customInstances.innerHTML = `<button class="btn-secondary action-btn" id="backTemplates">← Templates</button><h2 class="sheet-title">${escapeHtml(template.title)}</h2><p>Select a numbered check sheet.</p><div class="instance-list">${instances.map(i => `<button class="instance-card" data-instance-id="${i.id}"><strong>${escapeHtml(i.name)}</strong><br><small>${i.updatedAt ? 'Saved: ' + escapeHtml(i.updatedAt) : 'Not completed'}</small></button>`).join('')}</div>`;
-      document.getElementById('backTemplates').addEventListener('click', renderCustomHome);
-      customInstances.querySelectorAll('.instance-card').forEach(b => b.addEventListener('click', () => renderCustomSheet(b.dataset.instanceId)));
-    }
-    function renderCustomSheet(instanceId) {
-      const instance = customData.instances.find(i => i.id === instanceId); const template = instance && customData.templates.find(t => t.id === instance.templateId); if (!template) return renderCustomHome();
-      showCustomView('sheet');
-      const meta = template.lhs.map(label => `<label>${escapeHtml(label)}<input class="custom-sheet-input" data-meta="${escapeHtml(label)}" value="${escapeHtml(instance.meta[label] || '')}"></label>`).join('');
-      let table = '<div class="template-grid"><table><thead><tr><th>Sl. No</th>' + template.columns.map(c => `<th>${escapeHtml(c)}</th>`).join('') + '</tr></thead><tbody>';
-      for (let r = 0; r < template.rows; r++) { table += `<tr><td>${r + 1}</td>`; for (let c = 0; c < template.columns.length; c++) { const fixed = template.fixedCells[r][c]; table += fixed ? `<td class="fixed-cell">${escapeHtml(fixed)}</td>` : `<td><input class="custom-sheet-input" data-row="${r}" data-col="${c}" value="${escapeHtml(instance.values[r][c] || '')}"></td>`; } table += '</tr>'; }
-      customSheet.innerHTML = `<button class="btn-secondary action-btn" id="backInstances">← Check sheets</button><h2 class="sheet-title">${escapeHtml(instance.name)}</h2><div class="sheet-meta">${meta}</div>${table}</tbody></table></div><button class="action-btn btn-success" id="saveInstance" style="margin-top:16px">Save All</button>`;
-      document.getElementById('backInstances').addEventListener('click', () => renderInstances(template.id));
-      document.getElementById('saveInstance').addEventListener('click', async () => {
-        customSheet.querySelectorAll('[data-meta]').forEach(input => instance.meta[input.dataset.meta] = input.value);
-        customSheet.querySelectorAll('[data-row]').forEach(input => instance.values[input.dataset.row][input.dataset.col] = input.value);
-        instance.updatedAt = getTodayStr(); saveCustomData(); await saveCustomRemote(); alert('Check sheet saved.'); renderInstances(template.id);
-      });
-    }
-    async function saveCustomRemote() {
-      const webAppUrl = 'https://script.google.com/macros/s/AKfycbyUKSXgBRmei1v4v97g-agSzR-yOU0OrwzkhAnjreyu4UaPSrHPNwLrcjZPHnqgAOwp/exec';
-      try { await fetch(webAppUrl, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ customData }) }); } catch (_) { console.warn('Custom Lists saved locally; Sheet2 sync failed.'); }
-    }
-    async function loadCustomRemote() {
-      const webAppUrl = 'https://script.google.com/macros/s/AKfycbyUKSXgBRmei1v4v97g-agSzR-yOU0OrwzkhAnjreyu4UaPSrHPNwLrcjZPHnqgAOwp/exec?mode=custom';
-      try {
-        const response = await fetch(webAppUrl);
-        const result = await response.json();
-        if (result.success && result.customData && Array.isArray(result.customData.templates)) {
-          customData = result.customData;
-          saveCustomData();
+        // If edit mode is off, turn it on automatically so user can fill the new row
+        if (!editMode) {
+          setEditMode(true);
         }
-      } catch (_) { console.warn('Using locally saved Custom Lists.'); }
-    }
-    loadCustomData();
 
-// ----- Init -----
-loadTasks();
+        // Scroll to new row
+        setTimeout(() => {
+          const lastRow = taskBody.lastElementChild;
+          if (lastRow) lastRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+      }
 
-// If no tasks after loading (should not happen because loadTasks seeds data)
-if (tasks.length === 0) {
-  tasks = [
-    { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Name', maker: 'Name', writtenDate: getTodayStr(), targetDate: '', planned: 'CAD model review', done: false, completedDate: '', remark: '' },
-    { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Name', maker: 'Name', writtenDate: getYesterdayStr(), targetDate: '', planned: 'Update fixtures', done: false, completedDate: '', remark: '' },
-    { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Name', maker: 'Name', writtenDate: getTodayStr(), targetDate: '', planned: 'Final inspection', done: true, completedDate: getTodayStr(), remark: 'Approved' },
-  ];
-  saveTasks();
-}
+      addBtn.addEventListener('click', addNewRow);
 
-// Render local data immediately, then replace it with the shared Sheet data when available.
-renderTable();
-setEditMode(false);
-loadDataFromSheet();
+      // ----- Custom lists -----
+      const customPage = document.getElementById('custom');
+      const customHome = document.getElementById('customHome');
+      const customInstances = document.getElementById('customInstances');
+      const customSheet = document.getElementById('customSheet');
+      const lhsFields = document.getElementById('lhsFields');
+      const templateBuilder = document.getElementById('templateBuilder');
+      const saveTemplateBtn = document.getElementById('saveTemplateBtn');
+      const CUSTOM_KEY = 'taskflow_custom_lists';
+      let customData = { templates: [], instances: [] };
 
-console.log('✅ TaskFlow ready with Save All concept. Edit toggles inputs, Save All collects data.');
-  })();
-</script>
+      function addLhsField(value = '') {
+        const row = document.createElement('div');
+        row.className = 'lhs-row';
+        row.innerHTML = `<input type="text" class="lhs-label" placeholder="e.g. Part No" value="${escapeHtml(value)}"><button class="icon-btn" type="button" title="Remove">×</button>`;
+        row.querySelector('button').addEventListener('click', () => row.remove());
+        lhsFields.appendChild(row);
+      }
+      addLhsField('Part No'); addLhsField('Part Name');
+      document.getElementById('addLhsBtn').addEventListener('click', () => addLhsField());
+      document.getElementById('goCustom').addEventListener('click', async () => {
+        showPage('custom'); renderCustomHome(); await loadCustomRemote(); renderCustomHome();
+      });
+
+      function loadCustomData() {
+        try { customData = JSON.parse(localStorage.getItem(CUSTOM_KEY)) || customData; } catch (_) { }
+      }
+      function saveCustomData() { localStorage.setItem(CUSTOM_KEY, JSON.stringify(customData)); }
+      function customId() { return `${Date.now()}-${Math.random().toString(36).slice(2)}`; }
+      function showCustomView(view) {
+        customHome.hidden = view !== 'home'; customInstances.hidden = view !== 'instances'; customSheet.hidden = view !== 'sheet';
+      }
+      function renderCustomHome() {
+        showCustomView('home');
+        const list = document.getElementById('templateList');
+        if (!customData.templates.length) { list.innerHTML = '<p style="color:#64748b">No templates created yet.</p>'; return; }
+        list.innerHTML = customData.templates.map(t => `<button class="template-item" data-template-id="${t.id}"><strong>${escapeHtml(t.title)}</strong><br><small>${t.rows} rows · ${t.columns.length} columns · ${t.copies} sheets</small></button>`).join('');
+        list.querySelectorAll('button').forEach(button => button.addEventListener('click', () => renderInstances(button.dataset.templateId)));
+      }
+      document.getElementById('buildTemplateBtn').addEventListener('click', () => {
+        const rows = Number(document.getElementById('customRows').value);
+        const cols = Number(document.getElementById('customCols').value);
+        if (!Number.isInteger(rows) || rows < 1 || !Number.isInteger(cols) || cols < 1) return alert('Enter at least one row and one column.');
+        let html = '<table><thead><tr><th>Sl. No</th>';
+        for (let c = 0; c < cols; c++) html += `<th><input class="column-title" placeholder="Column ${c + 1}"></th>`;
+        html += '</tr></thead><tbody>';
+        for (let r = 0; r < rows; r++) { html += `<tr><td>${r + 1}</td>`; for (let c = 0; c < cols; c++) html += `<td><input class="template-cell" data-row="${r}" data-col="${c}" placeholder="Optional fixed value"></td>`; html += '</tr>'; }
+        templateBuilder.innerHTML = html + '</tbody></table>'; templateBuilder.hidden = false; saveTemplateBtn.hidden = false;
+      });
+      saveTemplateBtn.addEventListener('click', async () => {
+        const title = document.getElementById('customTitle').value.trim();
+        const rows = Number(document.getElementById('customRows').value), copies = Number(document.getElementById('customCopies').value);
+        const columns = [...templateBuilder.querySelectorAll('.column-title')].map((input, i) => input.value.trim() || `Column ${i + 1}`);
+        const lhs = [...lhsFields.querySelectorAll('.lhs-label')].map(input => input.value.trim()).filter(Boolean);
+        if (!title || !columns.length || !Number.isInteger(copies) || copies < 1) return alert('Enter a main title, columns, and number of check sheets.');
+        const fixedCells = Array.from({ length: rows }, () => Array(columns.length).fill(''));
+        templateBuilder.querySelectorAll('.template-cell').forEach(input => fixedCells[input.dataset.row][input.dataset.col] = input.value);
+        const template = { id: customId(), title, rows, columns, lhs, fixedCells, copies, createdAt: getTodayStr() };
+        customData.templates.push(template);
+        for (let i = 1; i <= copies; i++) customData.instances.push({ id: customId(), templateId: template.id, name: `${title}_${i}`, meta: {}, values: Array.from({ length: rows }, () => Array(columns.length).fill('')), updatedAt: '' });
+        saveCustomData(); await saveCustomRemote(); alert('Template and numbered check sheets created.');
+        document.getElementById('customTitle').value = ''; templateBuilder.hidden = true; saveTemplateBtn.hidden = true; renderCustomHome();
+      });
+      function renderInstances(templateId) {
+        const template = customData.templates.find(t => t.id === templateId); if (!template) return renderCustomHome();
+        showCustomView('instances'); const instances = customData.instances.filter(i => i.templateId === templateId);
+        customInstances.innerHTML = `<button class="btn-secondary action-btn" id="backTemplates">← Templates</button><h2 class="sheet-title">${escapeHtml(template.title)}</h2><p>Select a numbered check sheet.</p><div class="instance-list">${instances.map(i => `<button class="instance-card" data-instance-id="${i.id}"><strong>${escapeHtml(i.name)}</strong><br><small>${i.updatedAt ? 'Saved: ' + escapeHtml(i.updatedAt) : 'Not completed'}</small></button>`).join('')}</div>`;
+        document.getElementById('backTemplates').addEventListener('click', renderCustomHome);
+        customInstances.querySelectorAll('.instance-card').forEach(b => b.addEventListener('click', () => renderCustomSheet(b.dataset.instanceId)));
+      }
+      function renderCustomSheet(instanceId) {
+        const instance = customData.instances.find(i => i.id === instanceId); const template = instance && customData.templates.find(t => t.id === instance.templateId); if (!template) return renderCustomHome();
+        showCustomView('sheet');
+        const meta = template.lhs.map(label => `<label>${escapeHtml(label)}<input class="custom-sheet-input" data-meta="${escapeHtml(label)}" value="${escapeHtml(instance.meta[label] || '')}"></label>`).join('');
+        let table = '<div class="template-grid"><table><thead><tr><th>Sl. No</th>' + template.columns.map(c => `<th>${escapeHtml(c)}</th>`).join('') + '</tr></thead><tbody>';
+        for (let r = 0; r < template.rows; r++) { table += `<tr><td>${r + 1}</td>`; for (let c = 0; c < template.columns.length; c++) { const fixed = template.fixedCells[r][c]; table += fixed ? `<td class="fixed-cell">${escapeHtml(fixed)}</td>` : `<td><input class="custom-sheet-input" data-row="${r}" data-col="${c}" value="${escapeHtml(instance.values[r][c] || '')}"></td>`; } table += '</tr>'; }
+        customSheet.innerHTML = `<button class="btn-secondary action-btn" id="backInstances">← Check sheets</button><h2 class="sheet-title">${escapeHtml(instance.name)}</h2><div class="sheet-meta">${meta}</div>${table}</tbody></table></div><button class="action-btn btn-success" id="saveInstance" style="margin-top:16px">Save All</button>`;
+        document.getElementById('backInstances').addEventListener('click', () => renderInstances(template.id));
+        document.getElementById('saveInstance').addEventListener('click', async () => {
+          customSheet.querySelectorAll('[data-meta]').forEach(input => instance.meta[input.dataset.meta] = input.value);
+          customSheet.querySelectorAll('[data-row]').forEach(input => instance.values[input.dataset.row][input.dataset.col] = input.value);
+          instance.updatedAt = getTodayStr(); saveCustomData(); await saveCustomRemote(); alert('Check sheet saved.'); renderInstances(template.id);
+        });
+      }
+      async function saveCustomRemote() {
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbyUKSXgBRmei1v4v97g-agSzR-yOU0OrwzkhAnjreyu4UaPSrHPNwLrcjZPHnqgAOwp/exec';
+        try { await fetch(webAppUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ customData }) }); } catch (_) { console.warn('Custom Lists saved locally; Sheet2 sync failed.'); }
+      }
+      async function loadCustomRemote() {
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbyUKSXgBRmei1v4v97g-agSzR-yOU0OrwzkhAnjreyu4UaPSrHPNwLrcjZPHnqgAOwp/exec?mode=custom';
+        try {
+          const response = await fetch(webAppUrl);
+          const result = await response.json();
+          if (result.success && result.customData && Array.isArray(result.customData.templates)) {
+            customData = result.customData;
+            saveCustomData();
+          }
+        } catch (_) { console.warn('Using locally saved Custom Lists.'); }
+      }
+      loadCustomData();
+
+      // ----- Init -----
+      loadTasks();
+
+      // If no tasks after loading (should not happen because loadTasks seeds data)
+      if (tasks.length === 0) {
+        tasks = [
+          { id: Date.now() + 1, tool: 'IM180', scope: 'Newtool', design: 'Name', maker: 'Name', writtenDate: getTodayStr(), targetDate: '', planned: 'CAD model review', done: false, completedDate: '', remark: '' },
+          { id: Date.now() + 2, tool: 'IM205', scope: 'Rework', design: 'Name', maker: 'Name', writtenDate: getYesterdayStr(), targetDate: '', planned: 'Update fixtures', done: false, completedDate: '', remark: '' },
+          { id: Date.now() + 3, tool: 'IM112', scope: 'ECN', design: 'Name', maker: 'Name', writtenDate: getTodayStr(), targetDate: '', planned: 'Final inspection', done: true, completedDate: getTodayStr(), remark: 'Approved' },
+        ];
+        saveTasks();
+      }
+
+      // Render local data immediately, then replace it with the shared Sheet data when available.
+      renderTable();
+      setEditMode(false);
+      loadDataFromSheet();
+
+      console.log('✅ TaskFlow ready with Save All concept. Edit toggles inputs, Save All collects data.');
+    })();
+  </script>
+
 
 </body>
+
 </html>
