@@ -1,0 +1,65 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Inject Secrets into index.html
+        env:
+          RAW_PIN: ${{ secrets.GATEKEEPER_PIN }}
+          APP_URL: ${{ secrets.GOOGLE_WEB_APP_URL }}
+        run: |
+          python3 -c "
+          import os, hashlib
+
+          pin = os.environ.get('RAW_PIN') or '2000'
+          url = os.environ.get('APP_URL') or ''
+          pin_hash = hashlib.sha256(pin.strip().encode('utf-8')).hexdigest()
+
+          with open('index.html', 'r', encoding='utf-8') as f:
+              content = f.read()
+
+          content = content.replace('__GOOGLE_WEB_APP_URL__', url.strip())
+          content = content.replace('__GATEKEEPER_PIN_HASH__', pin_hash)
+
+          with open('index.html', 'w', encoding='utf-8') as f:
+              f.write(content)
+
+          print('✅ GitHub Secrets successfully injected into index.html.')
+          "
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
